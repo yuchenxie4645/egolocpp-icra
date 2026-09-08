@@ -91,3 +91,7 @@ secrets.*
 *.avi
 *.mov
 *.webm
+
+# Generated ablation benchmark data and results
+/EgoLoc/ablation-tests/data/
+/EgoLoc/ablation-tests/results/

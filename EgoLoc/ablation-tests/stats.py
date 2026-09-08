@@ -134,6 +134,10 @@ def _expected_keys(manifest):
         result_key(record["episode"], task, mode, trial)
         for record in manifest["episodes"]
         for task in TASKS
+        if record["labels"].get(
+            "contact_local" if task == "contact" else "separate_local"
+        )
+        is not None
         for mode in MODES
         for trial in TRIALS
     }
@@ -215,11 +219,12 @@ def _build_rows(manifest, records, allow_partial):
     for episode_record in manifest["episodes"]:
         episode = episode_record["episode"]
         for task in TASKS:
-            ground_truth = int(
-                episode_record["labels"][
-                    "contact_local" if task == "contact" else "separate_local"
-                ]
+            raw_ground_truth = episode_record["labels"].get(
+                "contact_local" if task == "contact" else "separate_local"
             )
+            if raw_ground_truth is None:
+                continue
+            ground_truth = int(raw_ground_truth)
             for mode in MODES:
                 rows = grouped.get((episode, task, mode), [])
                 valid_predictions = [
@@ -487,6 +492,11 @@ def generate_statistics(
         "complete": not (missing or torn or duplicates),
         "record_count": len(records),
         "missing_trial_keys": len(missing),
+        "available_events": manifest["expected"]["events"],
+        "unavailable_labels_ignored": manifest["expected"][
+            "unavailable_labels"
+        ],
+        "ignored_unavailable": manifest["missing_labels"],
         "rounding_policy": (
             "int(round(np.mean(valid_predictions))); Python round uses "
             "banker's ties-to-even"
@@ -583,6 +593,12 @@ def generate_statistics(
         summary["aggregation"],
         "",
         summary["weighting"],
+        "",
+        (
+            f"{summary['available_events']} available events were scored; "
+            f"{summary['unavailable_labels_ignored']} explicitly unavailable "
+            "labels were ignored without imputation."
+        ),
         "",
         "Superiority is stated only when the MAE direction, paired bootstrap "
         "difference CI excluding zero, and Holm-corrected Wilcoxon p<0.05 agree.",

@@ -7,7 +7,10 @@
 - **Labels**: `/home/data_labeling/data/OccluBench/label.xlsx`, sheet `Sheet1`, 327 data rows,
   columns: `episode, start_frame, end_frame, num_frames, source_folder, episode_folder,
   created_at, contact_local, separate_local, contact_frame, seperate_frame`.
-  All 327 rows have both `contact_local` and `separate_local` (no missing labels here).
+  Treat non-numeric `"x"` labels as explicitly unavailable and ignore them
+  without imputation: contact for episode `000098`, and separation for
+  episodes `000098` and `000238`. This leaves 326 contact and 325 separation
+  events (651 available events total).
   **Ground truth for scoring is the LOCAL indices** (`contact_local`, `separate_local`),
   which index the re-indexed episode frames (local 0..num_frames-1), exactly what our MP4s use.
   `contact_frame`/`seperate_frame` are global source-video indices (start_frame + local); record
@@ -43,7 +46,7 @@
 
 ## Scale / resume requirements
 
-- Event-level trials: 327 episodes × 2 tasks × 3 modes × 3 trials = **5,886** before feedback;
+- Event-level trials: 651 available events × 3 modes × 3 trials = **5,859** before feedback;
   roughly 12k–25k model requests with feedback. Every stage MUST be resumable and persist each
   result immediately (append-safe JSONL, fsync per line). Resume by immutable result key:
   `{episode}|{task}|{mode}|{trial}` — never overwrite a completed key.
@@ -55,7 +58,8 @@ Plain modules imported via sys.path insertion (hyphen in dir name — no package
 - `spec.md` — this file
 - `manifest.py` — build versioned manifest JSON from label.xlsx + segments.csv:
   per-episode {episode, num_frames, contact_local, separate_local, global labels, label paths,
-  mtime, v3_train_membership="not_in_v3_train"} + expected key enumeration (5886).
+  mtime, availability/unavailable-marker provenance,
+  v3_train_membership="not_in_v3_train"} + expected key enumeration (5859).
 - `convert.py` — PNG→MP4 (`cv2.VideoWriter`, mp4v, fps=30) per episode into
   `/home/EgoLoc/ablation-tests/data/videos/<NNNNNN>.mp4`. Verify: PNG names contiguous 0..n-1,
   every frame readable, output FRAME_COUNT == num_frames, dimensions match, re-read spot checks.
@@ -71,7 +75,7 @@ Plain modules imported via sys.path insertion (hyphen in dir name — no package
   when the task changes, SDPA for both towers (FA4 fails on Blackwell), and the legacy rope /
   processor shims. Decoding is locked to `do_sample=True`, temperature 0.1, top_p 0.5,
   max_new_tokens 200, disabled frequency/presence penalties, and `enable_thinking=False`.
-  The model and processor stay warm for all 5,886 trials. This module has no OpenAI or vLLM
+  The model and processor stay warm for all 5,859 trials. This module has no OpenAI or vLLM
   dependency.
 - `runner.py` — orchestrates evaluate stage: for each key not already in results JSONL:
   run one trial through the trial3 mode-aware API with max_feedbacks=1, collect trace, append

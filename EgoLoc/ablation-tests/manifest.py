@@ -34,6 +34,7 @@ ADAPTERS = {
     "contact": "/home/EgoLoc/training/v3-grpo/contact_sft_grpo_adapter",
     "separation": "/home/EgoLoc/training/v3-grpo/separation_sft_grpo_adapter",
 }
+UNAVAILABLE_MARKERS = {"", "x", "na", "n/a", "none", "null"}
 
 
 class ManifestError(ValueError):
@@ -90,6 +91,21 @@ def _as_int(value, field, episode=None):
     except (TypeError, ValueError):
         pass
     return converted
+
+
+def _as_optional_int(value, field, episode=None):
+    """Parse an integer label, returning ``None`` for explicit unavailability."""
+    if value is None or (isinstance(value, float) and math.isnan(value)):
+        return None
+    if isinstance(value, str) and value.strip().lower() in UNAVAILABLE_MARKERS:
+        return None
+    return _as_int(value, field, episode)
+
+
+def _raw_label(value):
+    if value is None or (isinstance(value, float) and math.isnan(value)):
+        return None
+    return str(value)
 
 
 def _manifest_hash(document):
@@ -218,30 +234,43 @@ def build_manifest(
                 f"episode {episode}: num_frames={num_frames} but "
                 f"inclusive range has {end - start + 1}"
             )
-        contact_local = _as_int(row["contact_local"], "contact_local", episode)
-        separate_local = _as_int(
+        contact_local = _as_optional_int(
+            row["contact_local"], "contact_local", episode
+        )
+        separate_local = _as_optional_int(
             row["separate_local"], "separate_local", episode
         )
         for field, value in (
             ("contact_local", contact_local),
             ("separate_local", separate_local),
         ):
-            if not 0 <= value < num_frames:
+            if value is not None and not 0 <= value < num_frames:
                 raise ManifestError(
                     f"episode {episode}: {field}={value} outside "
                     f"[0,{num_frames})"
                 )
-        contact_global = _as_int(
+        contact_global = _as_optional_int(
             row["contact_frame"], "contact_frame", episode
         )
-        separation_global = _as_int(
+        separation_global = _as_optional_int(
             row["seperate_frame"], "seperate_frame", episode
         )
-        if contact_global != start + contact_local:
+        if (contact_local is None) != (contact_global is None):
+            raise ManifestError(
+                f"episode {episode}: contact local/global availability mismatch"
+            )
+        if (separate_local is None) != (separation_global is None):
+            raise ManifestError(
+                f"episode {episode}: separation local/global availability mismatch"
+            )
+        if contact_local is not None and contact_global != start + contact_local:
             raise ManifestError(
                 f"episode {episode}: contact global/local mismatch"
             )
-        if separation_global != start + separate_local:
+        if (
+            separate_local is not None
+            and separation_global != start + separate_local
+        ):
             raise ManifestError(
                 f"episode {episode}: separation global/local mismatch"
             )
@@ -296,6 +325,32 @@ def build_manifest(
                 f"000000.png..{num_frames - 1:06d}.png"
             )
 
+        availability = {
+            "contact": contact_local is not None,
+            "separation": separate_local is not None,
+        }
+        unavailable_labels = []
+        if not availability["contact"]:
+            unavailable_labels.append(
+                {
+                    "task": "contact",
+                    "local_column": "contact_local",
+                    "local_value": _raw_label(row["contact_local"]),
+                    "global_column": "contact_frame",
+                    "global_value": _raw_label(row["contact_frame"]),
+                }
+            )
+        if not availability["separation"]:
+            unavailable_labels.append(
+                {
+                    "task": "separation",
+                    "local_column": "separate_local",
+                    "local_value": _raw_label(row["separate_local"]),
+                    "global_column": "seperate_frame",
+                    "global_value": _raw_label(row["seperate_frame"]),
+                }
+            )
+
         records.append(
             {
                 "episode": episode,
@@ -309,6 +364,8 @@ def build_manifest(
                     "contact_global": contact_global,
                     "separation_global": separation_global,
                 },
+                "availability": availability,
+                "unavailable_labels": unavailable_labels,
                 "paths": {
                     "episode_dir": str(episode_dir),
                     "rgb_dir": str(rgb_dir),
@@ -328,7 +385,21 @@ def build_manifest(
             }
         )
 
-    expected_trials = expected_episodes * 2 * 3 * 3
+    unavailable_contact = [
+        record["episode"]
+        for record in records
+        if not record["availability"]["contact"]
+    ]
+    unavailable_separation = [
+        record["episode"]
+        for record in records
+        if not record["availability"]["separation"]
+    ]
+    contact_events = expected_episodes - len(unavailable_contact)
+    separation_events = expected_episodes - len(unavailable_separation)
+    available_events = contact_events + separation_events
+    unavailable_count = len(unavailable_contact) + len(unavailable_separation)
+    expected_trials = available_events * 3 * 3
     document = {
         "protocol_version": PROTOCOL_VERSION,
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
@@ -381,16 +452,19 @@ def build_manifest(
         },
         "expected": {
             "sequences": expected_episodes,
-            "events": expected_episodes * 2,
+            "label_slots": expected_episodes * 2,
+            "events": available_events,
+            "contact_events": contact_events,
+            "separation_events": separation_events,
             "trials": expected_trials,
-            "unavailable_labels": 0,
+            "unavailable_labels": unavailable_count,
         },
         "missing_labels": {
-            "contact": [],
-            "separation": [],
-            "contact_count": 0,
-            "separation_count": 0,
-            "total_count": 0,
+            "contact": unavailable_contact,
+            "separation": unavailable_separation,
+            "contact_count": len(unavailable_contact),
+            "separation_count": len(unavailable_separation),
+            "total_count": unavailable_count,
         },
         "episodes": records,
     }
@@ -418,20 +492,33 @@ def validate_manifest_document(document, check_sources=True):
         raise ManifestError("manifest episode identifiers are not unique")
     if identifiers != sorted(identifiers):
         raise ManifestError("manifest episodes are not deterministically sorted")
-    if expected.get("events") != expected_n * 2:
-        raise ManifestError("expected event count is inconsistent")
-    if expected.get("trials") != expected_n * 2 * 3 * 3:
-        raise ManifestError("expected trial count is inconsistent")
+    if expected.get("label_slots") != expected_n * 2:
+        raise ManifestError("expected label-slot count is inconsistent")
     missing = document.get("missing_labels", {})
-    if (
-        missing.get("contact") != []
-        or missing.get("separation") != []
-        or missing.get("contact_count") != 0
-        or missing.get("separation_count") != 0
-        or missing.get("total_count") != 0
-        or expected.get("unavailable_labels") != 0
+    missing_contact = missing.get("contact", [])
+    missing_separation = missing.get("separation", [])
+    if not isinstance(missing_contact, list) or not isinstance(
+        missing_separation, list
     ):
-        raise ManifestError("manifest reports unavailable labels")
+        raise ManifestError("missing-label episode lists must be arrays")
+    unavailable_count = len(missing_contact) + len(missing_separation)
+    if (
+        missing.get("contact_count") != len(missing_contact)
+        or missing.get("separation_count") != len(missing_separation)
+        or missing.get("total_count") != unavailable_count
+        or expected.get("unavailable_labels") != unavailable_count
+    ):
+        raise ManifestError("unavailable-label counts are inconsistent")
+    contact_events = expected_n - len(missing_contact)
+    separation_events = expected_n - len(missing_separation)
+    available_events = contact_events + separation_events
+    if (
+        expected.get("events") != available_events
+        or expected.get("contact_events") != contact_events
+        or expected.get("separation_events") != separation_events
+        or expected.get("trials") != available_events * 3 * 3
+    ):
+        raise ManifestError("available event/trial counts are inconsistent")
     if document.get("manifest_content_hash") != _manifest_hash(document):
         raise ManifestError("manifest_content_hash does not match content")
 
@@ -441,17 +528,39 @@ def validate_manifest_document(document, check_sources=True):
             raise ManifestError(f"invalid episode identifier {episode!r}")
         num_frames = _as_int(record.get("num_frames"), "num_frames", episode)
         labels = record.get("labels", {})
-        contact = _as_int(labels.get("contact_local"), "contact_local", episode)
-        separation = _as_int(
+        contact = _as_optional_int(
+            labels.get("contact_local"), "contact_local", episode
+        )
+        separation = _as_optional_int(
             labels.get("separate_local"), "separate_local", episode
         )
-        if not (0 <= contact < num_frames and 0 <= separation < num_frames):
-            raise ManifestError(f"episode {episode}: local label out of range")
+        availability = record.get("availability", {})
+        if availability != {
+            "contact": contact is not None,
+            "separation": separation is not None,
+        }:
+            raise ManifestError(f"episode {episode}: availability flags differ")
         start = _as_int(record.get("start_frame"), "start_frame", episode)
-        if labels.get("contact_global") != start + contact:
-            raise ManifestError(f"episode {episode}: contact global mismatch")
-        if labels.get("separation_global") != start + separation:
-            raise ManifestError(f"episode {episode}: separation global mismatch")
+        for task, local, global_key in (
+            ("contact", contact, "contact_global"),
+            ("separation", separation, "separation_global"),
+        ):
+            global_value = _as_optional_int(
+                labels.get(global_key), global_key, episode
+            )
+            if (local is None) != (global_value is None):
+                raise ManifestError(
+                    f"episode {episode}: {task} local/global availability mismatch"
+                )
+            if local is not None:
+                if not 0 <= local < num_frames:
+                    raise ManifestError(
+                        f"episode {episode}: {task} local label out of range"
+                    )
+                if global_value != start + local:
+                    raise ManifestError(
+                        f"episode {episode}: {task} global mismatch"
+                    )
         if record.get("v3_train_membership") is not False:
             raise ManifestError(f"episode {episode}: training membership must be false")
         if record.get("held_out") is not True:
@@ -470,6 +579,22 @@ def validate_manifest_document(document, check_sources=True):
                 f"{idx:06d}.png" for idx in range(num_frames)
             ]:
                 raise ManifestError(f"episode {episode}: PNG range changed")
+    actual_missing_contact = [
+        record["episode"]
+        for record in episodes
+        if not record["availability"]["contact"]
+    ]
+    actual_missing_separation = [
+        record["episode"]
+        for record in episodes
+        if not record["availability"]["separation"]
+    ]
+    if (
+        missing_contact != actual_missing_contact
+        or missing_separation != actual_missing_separation
+    ):
+        raise ManifestError("missing-label lists differ from episode records")
+
     return {
         "valid": True,
         "episodes": len(episodes),

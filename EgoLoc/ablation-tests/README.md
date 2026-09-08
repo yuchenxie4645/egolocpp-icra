@@ -2,8 +2,10 @@
 
 This pipeline evaluates only the 327 OccluBench sequences and only three
 sampling modes: hand speed, pinch, and hand speed + pinch. Ground truth is the
-local episode frame index. The complete run has 654 events and 5,886 trials
-(327 × 2 tasks × 3 modes × N=3).
+local episode frame index. Three unavailable labels are ignored without
+imputation: contact for `000098`, and separation for `000098` and `000238`.
+The complete run therefore has 651 available events and 5,859 trials
+(651 × 3 modes × N=3).
 
 Inference is Transformers-only: one warm `Qwen/Qwen3.5-9B` NF4 model, with the
 contact and separation PEFT adapters attached once and switched task-major.
@@ -59,8 +61,8 @@ signals and then uses GPU 1. The launcher is not run automatically.
 Expected successful audit cardinality:
 
 - 327 unique sequences
-- 654 labeled events, zero unavailable labels
-- 5,886 unique immutable trial keys
-- 327 records in each task × mode × trial stratum
+- 651 available labeled events; 3 unavailable labels explicitly ignored
+- 5,859 unique immutable trial keys
+- 326 contact and 325 separation records in each mode × trial stratum
 - paired seeds identical across modes
 - at most two adapter activations/switches in clean task-major execution

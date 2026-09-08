@@ -30,10 +30,22 @@
   },
   "dataset": "OccluBench",
   "expected": {
-    "events": 654,
+    "contact_events": 326,
+    "events": 651,
+    "label_slots": 654,
+    "separation_events": 325,
     "sequences": 327,
-    "trials": 5886,
-    "unavailable_labels": 0
+    "trials": 5859,
+    "unavailable_labels": 3
+  },
+  "ignored_unavailable_labels": {
+    "contact": [
+      "000098"
+    ],
+    "separation": [
+      "000098",
+      "000238"
+    ]
   },
   "grid_size": 3,
   "max_feedbacks": 1,

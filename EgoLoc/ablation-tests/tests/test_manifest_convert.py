@@ -44,7 +44,7 @@ def make_dataset(root, episodes=2, frames=12, missing_label=False):
             "num_frames": frames,
         }
         (episode_dir / "meta.json").write_text(json.dumps(meta))
-        contact_local = None if missing_label and episode_index == 0 else 2
+        contact_local = "x" if missing_label and episode_index == 0 else 2
         separate_local = frames - 3
         row = {
             "episode": episode_index,
@@ -57,7 +57,7 @@ def make_dataset(root, episodes=2, frames=12, missing_label=False):
             "contact_local": contact_local,
             "separate_local": separate_local,
             "contact_frame": (
-                None if contact_local is None else start + contact_local
+                "x" if contact_local == "x" else start + contact_local
             ),
             "seperate_frame": start + separate_local,
         }
@@ -101,7 +101,10 @@ def test_manifest_workbook_count_labels_and_idempotent_validation(tmp_path):
 
     assert document["expected"] == {
         "sequences": 2,
+        "label_slots": 4,
         "events": 4,
+        "contact_events": 2,
+        "separation_events": 2,
         "trials": 36,
         "unavailable_labels": 0,
     }
@@ -117,17 +120,30 @@ def test_manifest_workbook_count_labels_and_idempotent_validation(tmp_path):
     assert first["episodes"] == 2
 
 
-def test_manifest_rejects_missing_local_label(tmp_path):
+def test_manifest_records_and_ignores_unavailable_label(tmp_path):
     dataset = make_dataset(tmp_path / "dataset", missing_label=True)
+    document = manifest.build_manifest(
+        output=tmp_path / "manifest.json",
+        label_path=dataset / "label.xlsx",
+        segments_path=dataset / "segments.csv",
+        dataset_root=dataset,
+        expected_episodes=2,
+    )
 
-    with pytest.raises(manifest.ManifestError, match="missing contact_local"):
-        manifest.build_manifest(
-            output=tmp_path / "manifest.json",
-            label_path=dataset / "label.xlsx",
-            segments_path=dataset / "segments.csv",
-            dataset_root=dataset,
-            expected_episodes=2,
-        )
+    assert document["expected"] == {
+        "sequences": 2,
+        "label_slots": 4,
+        "events": 3,
+        "contact_events": 1,
+        "separation_events": 2,
+        "trials": 27,
+        "unavailable_labels": 1,
+    }
+    assert document["missing_labels"]["contact"] == ["000000"]
+    assert document["missing_labels"]["separation"] == []
+    assert document["episodes"][0]["labels"]["contact_local"] is None
+    assert document["episodes"][0]["availability"]["contact"] is False
+    assert document["episodes"][0]["unavailable_labels"][0]["local_value"] == "x"
 
 
 def test_png_to_mp4_preserves_count_indices_and_resumes(tmp_path):

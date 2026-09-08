@@ -110,16 +110,24 @@ def _validate_labels(record):
     num_frames = int(record["num_frames"])
     labels = record["labels"]
     for name in ("contact_local", "separate_local"):
-        value = int(labels[name])
+        raw_value = labels[name]
+        if raw_value is None:
+            continue
+        value = int(raw_value)
         if not 0 <= value < num_frames:
             raise ConversionError(
                 f"episode {record['episode']}: {name}={value} outside video"
             )
     start = int(record["start_frame"])
-    if int(labels["contact_global"]) != start + int(labels["contact_local"]):
+    if (
+        labels["contact_local"] is not None
+        and int(labels["contact_global"]) != start + int(labels["contact_local"])
+    ):
         raise ConversionError("contact label does not align local/global indices")
-    if int(labels["separation_global"]) != start + int(
-        labels["separate_local"]
+    if (
+        labels["separate_local"] is not None
+        and int(labels["separation_global"])
+        != start + int(labels["separate_local"])
     ):
         raise ConversionError("separation label does not align local/global indices")
 
@@ -162,13 +170,15 @@ def validate_video(
             f"{video_path}: dimensions {property_dims} != {expected_dims}"
         )
 
-    spot_indices = {
-        0,
-        num_frames // 2,
-        num_frames - 1,
-        int(record["labels"]["contact_local"]),
-        int(record["labels"]["separate_local"]),
-    }
+    spot_indices = {0, num_frames // 2, num_frames - 1}
+    spot_indices.update(
+        int(value)
+        for value in (
+            record["labels"]["contact_local"],
+            record["labels"]["separate_local"],
+        )
+        if value is not None
+    )
     decoded_spots = {}
     decoded_count = 0
     while True:

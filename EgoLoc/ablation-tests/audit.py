@@ -39,6 +39,10 @@ def expected_keys(manifest):
         result_key(record["episode"], task, mode, trial)
         for record in manifest["episodes"]
         for task in TASKS
+        if record["labels"].get(
+            "contact_local" if task == "contact" else "separate_local"
+        )
+        is not None
         for mode in MODES
         for trial in TRIALS
     }
@@ -229,12 +233,12 @@ def audit_results(
             _error(errors, key, "immutable key does not match fields")
         if record.get("adapter_alias") != task:
             _error(errors, key, "task alias does not match adapter identity")
-        expected_label = int(
-            by_episode[episode]["labels"][
-                "contact_local" if task == "contact" else "separate_local"
-            ]
+        expected_label = by_episode[episode]["labels"].get(
+            "contact_local" if task == "contact" else "separate_local"
         )
-        if record.get("ground_truth_local") != expected_label:
+        if expected_label is None:
+            _error(errors, key, "result exists for an unavailable label")
+        elif record.get("ground_truth_local") != int(expected_label):
             _error(errors, key, "ground-truth local label mismatch")
         if status == "success":
             prediction = record.get("prediction_frame")
@@ -256,11 +260,20 @@ def audit_results(
         if len(mode_seeds) == 3 and len(set(mode_seeds.values())) != 1:
             _error(errors, "|".join(map(str, group)), "paired seeds differ by mode")
 
-    expected_per_stratum = len(manifest["episodes"])
+    expected_per_task = {
+        task: sum(
+            record["labels"].get(
+                "contact_local" if task == "contact" else "separate_local"
+            )
+            is not None
+            for record in manifest["episodes"]
+        )
+        for task in TASKS
+    }
     bad_strata = {
         f"{task}|{mode}|{trial}": count
         for (task, mode, trial), count in sorted(strata.items())
-        if count != expected_per_stratum
+        if count != expected_per_task[task]
     }
     complete = not missing and not unexpected and not duplicates and not torn_final
     valid = not errors
@@ -271,6 +284,9 @@ def audit_results(
         "valid": valid,
         "success": bool(complete and valid and not partial),
         "expected_keys": len(expected),
+        "available_events": manifest["expected"]["events"],
+        "unavailable_labels": manifest["expected"]["unavailable_labels"],
+        "ignored_unavailable": manifest["missing_labels"],
         "records": len(records),
         "unique_keys": len(actual),
         "missing_count": len(missing),
@@ -305,6 +321,8 @@ def audit_results(
         f"**State:** {state}",
         "",
         f"- Expected keys: {len(expected)}",
+        f"- Available labeled events: {manifest['expected']['events']}",
+        f"- Unavailable labels ignored: {manifest['expected']['unavailable_labels']}",
         f"- Unique keys: {len(actual)}",
         f"- Missing: {len(missing)}",
         f"- Duplicate keys: {len(duplicates)}",

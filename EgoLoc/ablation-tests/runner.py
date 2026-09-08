@@ -549,10 +549,17 @@ def run_evaluation(
     planned = 0
     written = 0
     skipped = 0
+    ignored_unavailable_events = 0
     status_counts = {"success": 0, "terminal_failure": 0}
     # Locked task-major order minimizes PEFT set_adapter calls.
     for task in tasks:
         for record in records:
+            label_key = (
+                "contact_local" if task == "contact" else "separate_local"
+            )
+            if record["labels"].get(label_key) is None:
+                ignored_unavailable_events += 1
+                continue
             for trial in trials:
                 for mode in modes:
                     planned += 1
@@ -580,6 +587,7 @@ def run_evaluation(
         "planned": planned,
         "written": written,
         "skipped": skipped,
+        "ignored_unavailable_events": ignored_unavailable_events,
         "completed_in_file": len(store.completed_keys),
         "statuses_written": status_counts,
         "config_hash": config_hash,
