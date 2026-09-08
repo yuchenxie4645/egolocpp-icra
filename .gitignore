@@ -1,0 +1,93 @@
+# Workspace-only metadata
+/.cache/
+/AGENTS.md
+/_facts_tmp/
+
+# Existing nested repository metadata
+/EgoLoc/.git/
+/EgoLoc.git-metadata/
+
+# Secrets and local credentials
+*.env
+.env
+.env.*
+!.env.example
+auth.env
+*.pem
+*.key
+credentials*.json
+secrets.*
+
+# Python and test caches
+**/__pycache__/
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/.coverage
+**/htmlcov/
+*.py[cod]
+*.so
+
+# Local environments and editor files
+**/.venv/
+**/venv/
+**/.idea/
+**/.vscode/
+*.swp
+*~
+
+# Benchmark datasets and third-party checkouts
+/data_labeling/data/
+/data_labeling/external/
+/EgoLoc/hamer/
+/EgoLoc/hamer_cache/
+/EgoLoc/Video-Depth-Anything/
+
+# Generated EgoLoc outputs and demo media
+/EgoLoc/output/
+/EgoLoc/eval_tmux_capture.txt
+/EgoLoc/demo.gif
+/EgoLoc/TAL_TIL.png
+/EgoLoc/video*.mp4
+
+# Training runs, adapters, checkpoints, logs, and evaluation artifacts
+/EgoLoc/training/*/
+/EgoLoc/training/v3-eval-results.txt
+**/checkpoint-*/
+**/checkpoints/
+**/wandb/
+**/runs/
+**/logs/
+**/*.log
+
+# Model weights, serialized arrays, databases, and archives
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+*.onnx
+*.gguf
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.npy
+*.npz
+*.parquet
+*.arrow
+*.sqlite
+*.sqlite3
+*.db
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+*.7z
+*.rar
+
+# Raw video formats
+*.mp4
+*.mkv
+*.avi
+*.mov
+*.webm

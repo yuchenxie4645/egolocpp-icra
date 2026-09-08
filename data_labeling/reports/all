@@ -1,0 +1,407 @@
+]633;E;for f in reports/phase1_summary.md reports/video_inventory.csv reports/annotation_inventory.csv reports/download_blockers.md reports/tree.txt;d265c57f-9e9d-4a49-954e-c5f015371e70]633;C
+===== reports/phase1_summary.md =====
+
+# Phase 1 Summary
+
+## Machine
+- OS: Linux-5.15.0-139-generic-x86_64-with-glibc2.29
+- Python: Python 3.8.10
+- Disk total: 15875838464000 bytes
+- Disk used: 14774228230144 bytes
+- GPU if available: NVIDIA A800-SXM4-80GB, 81920 MiB
+NVIDIA A100-SXM4-80GB, 81920 MiB
+NVIDIA A100-SXM4-80GB, 81920 MiB
+NVIDIA A100-SXM4-80GB, 81920 MiB
+NVIDIA A100-SXM4-80GB, 81920 MiB
+NVIDIA A100-SXM4-80GB, 81920 MiB
+NVIDIA A100-SXM4-80GB, 81920 MiB
+NVIDIA A100-SXM4-80GB, 81920 MiB
+
+## Repositories cloned
+- USST: beebdb963a702b08de3a4cf8d1ac9924b544abc4
+- EgoLoc: aaf4234b1880cf2879367836bc65355676d014a7
+- EgoPAT3D repo: f189f475b34dc78a3933e4d21a4cf4ca560a31e2
+
+## Downloads attempted
+- USST EgoPAT3D-DT:
+  - status: blocked
+  - local archive path: data/raw_downloads/usst/EgoPAT3D-postproc.tar.gz (not present)
+  - extracted path: data/EgoPAT3D/EgoPAT3D-postproc/ (empty expected subdirectories present)
+- EgoPAT3D Hugging Face:
+  - status: blocked by network timeout during metadata/API access
+  - local path: data/EgoPAT3D/raw/EgoPAT3Dv1/ (not present)
+- EgoLoc EgoPAT3D samples:
+  - status: blocked by SJTU Pan browser/JavaScript cloud UI
+  - local path: data/EgoLoc_samples/EgoPAT3D/ (empty)
+- EgoLoc DeskTIL samples:
+  - status: blocked by SJTU Pan browser/JavaScript cloud UI
+  - local path: data/EgoLoc_samples/DeskTIL/ (empty)
+
+## Final data layout status
+- data/EgoPAT3D/EgoPAT3D-postproc/video_clips_hand: exists? True number of videos? 0
+- data/EgoPAT3D/EgoPAT3D-postproc/trajectory_repair: exists? True number of files? 0
+- data/EgoPAT3D/EgoPAT3D-postproc/odometry: exists? True number of files? 0
+- data/DeskTIL/videos: exists? True number of videos? 0
+- data/DeskTIL/annotations: exists? True number of annotation files? 0
+
+## Inspection results
+```json
+{
+  "num_videos": 3,
+  "num_readable_videos": 3,
+  "num_annotation_like_files": 29,
+  "num_readable_annotation_like_files": 14,
+  "videos_by_root": {
+    "external": 3
+  },
+  "annotations_by_root": {
+    "external": 24,
+    "reports": 5
+  }
+}
+```
+
+## Blockers
+- USST EgoPAT3D-DT download blocker
+- EgoPAT3D Hugging Face download blocker
+- EgoLoc EgoPAT3D sample download blocker
+- EgoLoc DeskTIL download blocker
+
+## Next phase readiness
+PARTIAL_READY_FOR_PHASE_2
+
+The repo layout, scripts, cloned source repositories, and verification reports are ready. The actual EgoPAT3D-DT, EgoPAT3D raw snapshot, and DeskTIL sample data still require manual/cloud access before Phase 2 can build real GRPO examples.
+
+===== reports/video_inventory.csv =====
+
+path,size_bytes,readable,frames,fps,width,height,duration_sec
+external/EgoLoc/video1.mp4,306298,True,32,30.0,960,540,1.0666666666666667
+external/EgoLoc/video2.mp4,310416,True,36,30.0,960,540,1.2
+external/EgoLoc/video3.mp4,631789,True,92,30.0,1440,1080,3.066666666666667
+
+===== reports/annotation_inventory.csv =====
+
+path,suffix,size_bytes,readable,kind,top_keys_or_columns,num_items,error
+external/EgoLoc/output/video1_result.json,.json,50,True,dict,"contact_frame,separation_frame",2,
+external/EgoLoc/output/video1_speed.json,.json,845,True,dict,"0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",32,
+external/EgoLoc/output/video2_result.json,.json,50,True,dict,"contact_frame,separation_frame",2,
+external/EgoLoc/output/video2_speed.json,.json,967,True,dict,"0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",36,
+external/EgoLoc/output/video3_result.json,.json,51,True,dict,"contact_frame,separation_frame",2,
+external/EgoLoc/output/video3_speed.json,.json,2644,True,dict,"0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",92,
+external/EgoLoc/requirements.txt,.txt,50,True,txt,numpy==1.22.3,3,
+external/EgoPAT3D_repo/build_dataset/mask_generation/models/1.pkl,.pkl,658734,False,,,,"ModuleNotFoundError(""No module named 'sklearn'"")"
+external/EgoPAT3D_repo/build_dataset/mask_generation/models/10.pkl,.pkl,1622382,False,,,,"ModuleNotFoundError(""No module named 'sklearn'"")"
+external/EgoPAT3D_repo/build_dataset/mask_generation/models/11.pkl,.pkl,737502,False,,,,"ModuleNotFoundError(""No module named 'sklearn'"")"
+external/EgoPAT3D_repo/build_dataset/mask_generation/models/12.pkl,.pkl,569886,False,,,,"ModuleNotFoundError(""No module named 'sklearn'"")"
+external/EgoPAT3D_repo/build_dataset/mask_generation/models/13.pkl,.pkl,585726,False,,,,"ModuleNotFoundError(""No module named 'sklearn'"")"
+external/EgoPAT3D_repo/build_dataset/mask_generation/models/14.pkl,.pkl,375771,False,,,,"ModuleNotFoundError(""No module named 'sklearn'"")"
+external/EgoPAT3D_repo/build_dataset/mask_generation/models/15.pkl,.pkl,821742,False,,,,"ModuleNotFoundError(""No module named 'sklearn'"")"
+external/EgoPAT3D_repo/build_dataset/mask_generation/models/2.pkl,.pkl,404574,False,,,,"ModuleNotFoundError(""No module named 'sklearn'"")"
+external/EgoPAT3D_repo/build_dataset/mask_generation/models/3.pkl,.pkl,354024,False,,,,"ModuleNotFoundError(""No module named 'sklearn'"")"
+external/EgoPAT3D_repo/build_dataset/mask_generation/models/4.pkl,.pkl,1405086,False,,,,"ModuleNotFoundError(""No module named 'sklearn'"")"
+external/EgoPAT3D_repo/build_dataset/mask_generation/models/5.pkl,.pkl,567006,False,,,,"ModuleNotFoundError(""No module named 'sklearn'"")"
+external/EgoPAT3D_repo/build_dataset/mask_generation/models/6.pkl,.pkl,709566,False,,,,"ModuleNotFoundError(""No module named 'sklearn'"")"
+external/EgoPAT3D_repo/build_dataset/mask_generation/models/7.pkl,.pkl,611070,False,,,,"ModuleNotFoundError(""No module named 'sklearn'"")"
+external/EgoPAT3D_repo/build_dataset/mask_generation/models/8.pkl,.pkl,254052,False,,,,"ModuleNotFoundError(""No module named 'sklearn'"")"
+external/EgoPAT3D_repo/build_dataset/mask_generation/models/9.pkl,.pkl,460014,False,,,,"ModuleNotFoundError(""No module named 'sklearn'"")"
+external/EgoPAT3D_repo/preprocessing/imu/CMakeLists.txt,.txt,229,True,txt,# Copyright (c) Microsoft Corporation. All rights reserved.,10,
+external/USST/requirements.txt,.txt,192,True,txt,opencv-python,20,
+reports/annotation_inventory.csv,.csv,3211,True,csv,"path,suffix,size_bytes,readable,kind,top_keys_or_columns,num_items,error",24,
+reports/inspection_summary.json,.json,223,True,dict,"num_videos,num_readable_videos,num_annotation_like_files,num_readable_annotation_like_files,videos_by_root,annotations_by_root",6,
+reports/phase1_manifest.json,.json,31555,True,dict,"created_utc,root,total_files,total_bytes,repositories,files",6,
+reports/tree.txt,.txt,9149,True,txt,.,201,
+reports/video_inventory.csv,.csv,274,True,csv,"path,size_bytes,readable,frames,fps,width,height,duration_sec",3,
+
+===== reports/download_blockers.md =====
+
+# Download Blockers
+
+## USST EgoPAT3D-DT download blocker
+
+Source:
+https://github.com/oppo-us-research/USST
+
+Official link found in `external/USST/README.md`:
+https://1drv.ms/f/c/0adef1d3209dfb47/Qkf7nSDT8d4ggAoxFQAAAAAAHkE-BxpcdN_G8g
+
+Expected:
+EgoPAT3D-postproc.tar.gz
+
+Problem:
+Tried a non-interactive HTTP GET probe with Python `urllib.request` and a browser user agent. The request timed out from this server before returning a downloadable archive or redirect target.
+
+Resolution needed from human:
+Manually download `EgoPAT3D-postproc.tar.gz` from the USST README OneDrive link and place it at:
+`data/raw_downloads/usst/EgoPAT3D-postproc.tar.gz`
+
+Then run:
+`tar -zxvf data/raw_downloads/usst/EgoPAT3D-postproc.tar.gz -C data/EgoPAT3D/`
+
+## EgoPAT3D Hugging Face download blocker
+
+Source:
+https://huggingface.co/datasets/ai4ce/EgoPAT3Dv1
+
+Expected:
+Official EgoPAT3D public dataset snapshot under `data/EgoPAT3D/raw/EgoPAT3Dv1/`
+
+Problem:
+Tried to inspect the official dataset non-interactively using `huggingface_hub.HfApi().list_repo_tree(repo_type="dataset", recursive=True)`. The request timed out while connecting to `huggingface.co`, so no reliable file list or size estimate was available from this server. The full snapshot was not downloaded.
+
+Resolution needed from human:
+After confirming network access and disk capacity, run:
+`FULL_EGOPAT3D_HF_DOWNLOAD=1 bash scripts/download_sources.sh`
+
+## EgoLoc EgoPAT3D sample download blocker
+
+Source:
+https://github.com/IRMVLab/EgoLoc
+
+Official link found in `external/EgoLoc/README.md`:
+https://pan.sjtu.edu.cn/web/share/a3b27a7d80cd6826aeaeed8cc71b5da8
+
+Expected:
+EgoPAT3D sample videos and manual annotations
+
+Problem:
+Tried a non-interactive HTTP GET probe. The server returned status `200` with `content-type: text/html` and an SJTU Pan browser application page (`<title>交大云盘</title>`), not a direct archive. This requires browser JavaScript/manual cloud UI interaction.
+
+Resolution needed from human:
+Manually download the EgoPAT3D sample package from the EgoLoc README and place the archive at:
+`data/raw_downloads/egoloc/`
+
+Then extract into:
+`data/EgoLoc_samples/EgoPAT3D/`
+
+## EgoLoc DeskTIL download blocker
+
+Source:
+https://github.com/IRMVLab/EgoLoc
+
+Official link found in `external/EgoLoc/README.md`:
+https://pan.sjtu.edu.cn/web/share/9c552393f367cfb9290c8ac890ed0c59
+
+Expected:
+DeskTIL sample videos and manual annotations
+
+Problem:
+Tried a non-interactive HTTP GET probe. The server returned status `200` with `content-type: text/html` and an SJTU Pan browser application page (`<title>交大云盘</title>`), not a direct archive. This requires browser JavaScript/manual cloud UI interaction.
+
+Resolution needed from human:
+Manually download the DeskTIL package from the EgoLoc README and place the archive at:
+`data/raw_downloads/desktil/`
+
+Then extract into:
+`data/EgoLoc_samples/DeskTIL/`
+
+Finally sort videos into:
+`data/DeskTIL/videos/`
+
+and annotations into:
+`data/DeskTIL/annotations/`
+
+===== reports/tree.txt =====
+
+.
+├── [0B] data
+│   ├── [0B] DeskTIL
+│   │   ├── [0B] annotations
+│   │   ├── [0B] raw
+│   │   └── [0B] videos
+│   ├── [0B] EgoLoc_samples
+│   │   ├── [0B] DeskTIL
+│   │   └── [0B] EgoPAT3D
+│   ├── [0B] EgoPAT3D
+│   │   ├── [0B] EgoPAT3D-postproc
+│   │   │   ├── [0B] odometry
+│   │   │   ├── [0B] trajectory_repair
+│   │   │   └── [0B] video_clips_hand
+│   │   └── [0B] raw
+│   └── [0B] raw_downloads
+│       ├── [0B] desktil
+│       ├── [0B] egoloc
+│       ├── [0B] egopat3d
+│       └── [0B] usst
+├── [0B] external
+│   ├── [0B] EgoLoc
+│   │   ├── [0B] output
+│   │   │   ├── [332K] video1_contact_frame.png
+│   │   │   ├── [50B] video1_result.json
+│   │   │   ├── [323K] video1_separation_frame.png
+│   │   │   ├── [845B] video1_speed.json
+│   │   │   ├── [35K] video1_speed_vis.png
+│   │   │   ├── [357K] video2_contact_frame.png
+│   │   │   ├── [50B] video2_result.json
+│   │   │   ├── [321K] video2_separation_frame.png
+│   │   │   ├── [967B] video2_speed.json
+│   │   │   ├── [35K] video2_speed_vis.png
+│   │   │   ├── [579K] video3_contact_frame.png
+│   │   │   ├── [51B] video3_result.json
+│   │   │   ├── [608K] video3_separation_frame.png
+│   │   │   ├── [3K] video3_speed.json
+│   │   │   ├── [39K] video3_speed_vis.png
+│   │   │   └── [5M] video3_vis.gif
+│   │   ├── [0B] script
+│   │   │   ├── [107B] __init__.py
+│   │   │   ├── [130B] __main__.py
+│   │   │   ├── [6K] cli.py
+│   │   │   ├── [3K] config.py
+│   │   │   ├── [5K] depth_estimation.py
+│   │   │   ├── [6K] feedback.py
+│   │   │   ├── [21K] frame_selection.py
+│   │   │   ├── [10K] hand_detection.py
+│   │   │   ├── [9K] pipeline.py
+│   │   │   ├── [3K] pointcloud.py
+│   │   │   ├── [5K] registration.py
+│   │   │   ├── [5K] speed_computation.py
+│   │   │   ├── [4K] utils.py
+│   │   │   └── [12K] vlm_inference.py
+│   │   ├── [92B] auth.env
+│   │   ├── [28M] demo.gif
+│   │   ├── [319B] egoloc3d_long.py
+│   │   ├── [52K] egoloc_2D_demo.py
+│   │   ├── [48K] egoloc_3D_demo.py
+│   │   ├── [1K] LICENSE
+│   │   ├── [11K] README.md
+│   │   ├── [50B] requirements.txt
+│   │   ├── [608K] TAL_TIL.png
+│   │   ├── [299K] video1.mp4
+│   │   ├── [303K] video2.mp4
+│   │   └── [617K] video3.mp4
+│   ├── [0B] EgoPAT3D_repo
+│   │   ├── [0B] build_dataset
+│   │   │   ├── [0B] mask_generation
+│   │   │   │   ├── [0B] models
+│   │   │   │   │   ├── [643K] 1.pkl
+│   │   │   │   │   ├── [2M] 10.pkl
+│   │   │   │   │   ├── [720K] 11.pkl
+│   │   │   │   │   ├── [557K] 12.pkl
+│   │   │   │   │   ├── [572K] 13.pkl
+│   │   │   │   │   ├── [367K] 14.pkl
+│   │   │   │   │   ├── [802K] 15.pkl
+│   │   │   │   │   ├── [395K] 2.pkl
+│   │   │   │   │   ├── [346K] 3.pkl
+│   │   │   │   │   ├── [1M] 4.pkl
+│   │   │   │   │   ├── [554K] 5.pkl
+│   │   │   │   │   ├── [693K] 6.pkl
+│   │   │   │   │   ├── [597K] 7.pkl
+│   │   │   │   │   ├── [248K] 8.pkl
+│   │   │   │   │   └── [449K] 9.pkl
+│   │   │   │   ├── [597B] HandPrediction.py
+│   │   │   │   ├── [1K] HandPredictionModel.py
+│   │   │   │   ├── [249K] ModelTraining.ipynb
+│   │   │   │   └── [2K] README.md
+│   │   │   ├── [0B] sbatch_scripts
+│   │   │   │   ├── [863B] run-colorExtraction.s
+│   │   │   │   ├── [808B] run-downloadDataset.s
+│   │   │   │   ├── [640B] run-handPoseEstimation.s
+│   │   │   │   ├── [538B] run-markClipRanges.s
+│   │   │   │   ├── [580B] run-maskGeneration.s
+│   │   │   │   ├── [553B] run-uploadDataset.s
+│   │   │   │   └── [666B] run-zipImgs.s
+│   │   │   └── [5K] README.md
+│   │   ├── [0B] preprocessing
+│   │   │   ├── [0B] imu
+│   │   │   │   ├── [0B] build
+│   │   │   │   │   └── [20B] produce.sh
+│   │   │   │   ├── [229B] CMakeLists.txt
+│   │   │   │   └── [1K] main.c
+│   │   │   ├── [4K] mkv2d2rgbrgb.py
+│   │   │   ├── [772B] README.md
+│   │   │   ├── [11K] realclip2gt.py
+│   │   │   └── [4K] rgbd2pointcloud.py
+│   │   ├── [1K] LICENSE
+│   │   └── [8K] README.md
+│   └── [0B] USST
+│       ├── [0B] assets
+│       │   └── [6M] demo.gif
+│       ├── [0B] config
+│       │   ├── [0B] h2o
+│       │   │   ├── [1K] usst_res18_2d.yml
+│       │   │   └── [1K] usst_res18_3d.yml
+│       │   ├── [1K] usst_res18_2d.yml
+│       │   ├── [1K] usst_res18_3d.yml
+│       │   ├── [1K] usst_res18_local3d.yml
+│       │   ├── [1K] usst_vit_2d.yml
+│       │   ├── [1K] usst_vit_3d.yml
+│       │   └── [1K] usst_vit_local3d.yml
+│       ├── [0B] data
+│       │   └── [44B] .gitignore
+│       ├── [0B] exp
+│       │   ├── [312B] demo.sh
+│       │   ├── [365B] test.sh
+│       │   ├── [305B] train.sh
+│       │   └── [570B] trainval_h2o.sh
+│       ├── [0B] preprocess
+│       │   ├── [0B] EgoPAT3D
+│       │   │   ├── [3K] depth_estimation.py
+│       │   │   ├── [18K] get_3dhand_trajectory.py
+│       │   │   ├── [2K] pc2depth.py
+│       │   │   ├── [4K] read_mkv_pyk4a.py
+│       │   │   ├── [2K] README.md
+│       │   │   ├── [5K] split_videos.py
+│       │   │   ├── [7K] step1_split_videos_with_landmarks.py
+│       │   │   ├── [8K] step2_flow_warped_2dhand_trajectory.py
+│       │   │   ├── [5K] step3_fetch_depth_traj3d.py
+│       │   │   ├── [9K] step4_repair_invalid_depth.py
+│       │   │   ├── [11K] step5_compare_depth.py
+│       │   │   ├── [12K] step6_compute_odometry.py
+│       │   │   └── [11K] visualize_gt.py
+│       │   └── [0B] H2O
+│       │       ├── [2K] get_splits.py
+│       │       ├── [19K] preprocess.py
+│       │       └── [10K] visualize.py
+│       ├── [0B] src
+│       │   ├── [0B] models
+│       │   │   ├── [7K] EmbedFrame.py
+│       │   │   ├── [1K] EmbedTrajectory.py
+│       │   │   ├── [3K] Heads.py
+│       │   │   ├── [5K] ProTranV3.py
+│       │   │   ├── [4K] transformer_layers.py
+│       │   │   ├── [7K] TransformerSSM.py
+│       │   │   └── [3K] utils.py
+│       │   ├── [0B] __init__.py
+│       │   ├── [3K] config.py
+│       │   ├── [23K] EgoPAT3DLoader.py
+│       │   ├── [18K] H2OLoader.py
+│       │   ├── [6K] Losses.py
+│       │   ├── [4K] optimizers.py
+│       │   ├── [9K] runtime.py
+│       │   ├── [21K] utils.py
+│       │   ├── [5K] utils_h2o.py
+│       │   ├── [3K] utils_io.py
+│       │   └── [8K] utils_vis.py
+│       ├── [0B] third_party
+│       │   ├── [0B] hoi-forecast
+│       │   ├── [0B] NewCRFs
+│       │   ├── [0B] pyk4a
+│       │   └── [0B] RAFT
+│       ├── [0B] tools
+│       │   ├── [12K] demo.py
+│       │   ├── [14K] demo_paper.py
+│       │   ├── [10K] illustrate_task.py
+│       │   └── [7K] visualize_dataset.py
+│       ├── [2K] .gitignore
+│       ├── [433B] .gitmodules
+│       ├── [11K] LICENSE
+│       ├── [8K] README.md
+│       ├── [192B] requirements.txt
+│       ├── [4K] test.py
+│       ├── [3K] train.py
+│       └── [6K] trainval_h2o.py
+├── [0B] reports
+│   ├── [4K] annotation_inventory.csv
+│   ├── [3K] download_blockers.md
+│   ├── [242B] inspection_summary.json
+│   ├── [31K] phase1_manifest.json
+│   ├── [2K] phase1_summary.md
+│   ├── [546B] repo_commits.md
+│   ├── [9K] tree.txt
+│   └── [274B] video_inventory.csv
+├── [0B] scripts
+│   ├── [4K] download_sources.sh
+│   ├── [6K] inspect_data.py
+│   ├── [2K] make_manifest.py
+│   └── [1K] setup_env.sh
+├── [300B] .gitignore
+└── [1K] README_PHASE1.md

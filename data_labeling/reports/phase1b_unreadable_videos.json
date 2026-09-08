@@ -1,0 +1,367 @@
+{
+  "total_video_rows": 11990,
+  "unreadable_count": 214,
+  "unreadable_by_top": {
+    "data": 214
+  },
+  "unreadable_by_prefix": {
+    "data/EgoLoc_samples/DeskTIL": 130,
+    "data/EgoLoc_samples/EgoPAT3D": 84
+  },
+  "smallest_unreadable": [
+    {
+      "path": "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video100.mp4",
+      "size_bytes": "176",
+      "readable": "False",
+      "frames": "",
+      "fps": "",
+      "width": "",
+      "height": "",
+      "duration_sec": ""
+    },
+    {
+      "path": "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video101.mp4",
+      "size_bytes": "176",
+      "readable": "False",
+      "frames": "",
+      "fps": "",
+      "width": "",
+      "height": "",
+      "duration_sec": ""
+    },
+    {
+      "path": "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video102.mp4",
+      "size_bytes": "176",
+      "readable": "False",
+      "frames": "",
+      "fps": "",
+      "width": "",
+      "height": "",
+      "duration_sec": ""
+    },
+    {
+      "path": "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video103.mp4",
+      "size_bytes": "176",
+      "readable": "False",
+      "frames": "",
+      "fps": "",
+      "width": "",
+      "height": "",
+      "duration_sec": ""
+    },
+    {
+      "path": "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video104.mp4",
+      "size_bytes": "176",
+      "readable": "False",
+      "frames": "",
+      "fps": "",
+      "width": "",
+      "height": "",
+      "duration_sec": ""
+    },
+    {
+      "path": "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video105.mp4",
+      "size_bytes": "176",
+      "readable": "False",
+      "frames": "",
+      "fps": "",
+      "width": "",
+      "height": "",
+      "duration_sec": ""
+    },
+    {
+      "path": "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video106.mp4",
+      "size_bytes": "176",
+      "readable": "False",
+      "frames": "",
+      "fps": "",
+      "width": "",
+      "height": "",
+      "duration_sec": ""
+    },
+    {
+      "path": "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video107.mp4",
+      "size_bytes": "176",
+      "readable": "False",
+      "frames": "",
+      "fps": "",
+      "width": "",
+      "height": "",
+      "duration_sec": ""
+    },
+    {
+      "path": "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video108.mp4",
+      "size_bytes": "176",
+      "readable": "False",
+      "frames": "",
+      "fps": "",
+      "width": "",
+      "height": "",
+      "duration_sec": ""
+    },
+    {
+      "path": "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video109.mp4",
+      "size_bytes": "176",
+      "readable": "False",
+      "frames": "",
+      "fps": "",
+      "width": "",
+      "height": "",
+      "duration_sec": ""
+    },
+    {
+      "path": "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video110.mp4",
+      "size_bytes": "176",
+      "readable": "False",
+      "frames": "",
+      "fps": "",
+      "width": "",
+      "height": "",
+      "duration_sec": ""
+    },
+    {
+      "path": "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video111.mp4",
+      "size_bytes": "176",
+      "readable": "False",
+      "frames": "",
+      "fps": "",
+      "width": "",
+      "height": "",
+      "duration_sec": ""
+    },
+    {
+      "path": "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video112.mp4",
+      "size_bytes": "176",
+      "readable": "False",
+      "frames": "",
+      "fps": "",
+      "width": "",
+      "height": "",
+      "duration_sec": ""
+    },
+    {
+      "path": "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video113.mp4",
+      "size_bytes": "176",
+      "readable": "False",
+      "frames": "",
+      "fps": "",
+      "width": "",
+      "height": "",
+      "duration_sec": ""
+    },
+    {
+      "path": "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video114.mp4",
+      "size_bytes": "176",
+      "readable": "False",
+      "frames": "",
+      "fps": "",
+      "width": "",
+      "height": "",
+      "duration_sec": ""
+    },
+    {
+      "path": "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video115.mp4",
+      "size_bytes": "176",
+      "readable": "False",
+      "frames": "",
+      "fps": "",
+      "width": "",
+      "height": "",
+      "duration_sec": ""
+    },
+    {
+      "path": "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video116.mp4",
+      "size_bytes": "176",
+      "readable": "False",
+      "frames": "",
+      "fps": "",
+      "width": "",
+      "height": "",
+      "duration_sec": ""
+    },
+    {
+      "path": "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video117.mp4",
+      "size_bytes": "176",
+      "readable": "False",
+      "frames": "",
+      "fps": "",
+      "width": "",
+      "height": "",
+      "duration_sec": ""
+    },
+    {
+      "path": "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video118.mp4",
+      "size_bytes": "176",
+      "readable": "False",
+      "frames": "",
+      "fps": "",
+      "width": "",
+      "height": "",
+      "duration_sec": ""
+    },
+    {
+      "path": "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video119.mp4",
+      "size_bytes": "176",
+      "readable": "False",
+      "frames": "",
+      "fps": "",
+      "width": "",
+      "height": "",
+      "duration_sec": ""
+    }
+  ],
+  "largest_unreadable": [
+    {
+      "path": "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video100.mp4",
+      "size_bytes": "176",
+      "readable": "False",
+      "frames": "",
+      "fps": "",
+      "width": "",
+      "height": "",
+      "duration_sec": ""
+    },
+    {
+      "path": "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video101.mp4",
+      "size_bytes": "176",
+      "readable": "False",
+      "frames": "",
+      "fps": "",
+      "width": "",
+      "height": "",
+      "duration_sec": ""
+    },
+    {
+      "path": "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video102.mp4",
+      "size_bytes": "176",
+      "readable": "False",
+      "frames": "",
+      "fps": "",
+      "width": "",
+      "height": "",
+      "duration_sec": ""
+    },
+    {
+      "path": "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video103.mp4",
+      "size_bytes": "176",
+      "readable": "False",
+      "frames": "",
+      "fps": "",
+      "width": "",
+      "height": "",
+      "duration_sec": ""
+    },
+    {
+      "path": "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video104.mp4",
+      "size_bytes": "176",
+      "readable": "False",
+      "frames": "",
+      "fps": "",
+      "width": "",
+      "height": "",
+      "duration_sec": ""
+    },
+    {
+      "path": "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video105.mp4",
+      "size_bytes": "176",
+      "readable": "False",
+      "frames": "",
+      "fps": "",
+      "width": "",
+      "height": "",
+      "duration_sec": ""
+    },
+    {
+      "path": "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video106.mp4",
+      "size_bytes": "176",
+      "readable": "False",
+      "frames": "",
+      "fps": "",
+      "width": "",
+      "height": "",
+      "duration_sec": ""
+    },
+    {
+      "path": "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video107.mp4",
+      "size_bytes": "176",
+      "readable": "False",
+      "frames": "",
+      "fps": "",
+      "width": "",
+      "height": "",
+      "duration_sec": ""
+    },
+    {
+      "path": "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video108.mp4",
+      "size_bytes": "176",
+      "readable": "False",
+      "frames": "",
+      "fps": "",
+      "width": "",
+      "height": "",
+      "duration_sec": ""
+    },
+    {
+      "path": "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video109.mp4",
+      "size_bytes": "176",
+      "readable": "False",
+      "frames": "",
+      "fps": "",
+      "width": "",
+      "height": "",
+      "duration_sec": ""
+    }
+  ],
+  "unreadable_paths_sample": [
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video100.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video101.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video102.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video103.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video104.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video105.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video106.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video107.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video108.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video109.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video110.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video111.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video112.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video113.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video114.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video115.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video116.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video117.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video118.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video119.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video120.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video121.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video122.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video123.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video124.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video125.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video126.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video127.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video128.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video129.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video130.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video131.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video132.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video133.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video134.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video135.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video136.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video137.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video138.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video139.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video140.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video141.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video142.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video143.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video144.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video145.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video146.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video147.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video148.mp4",
+    "data/EgoLoc_samples/DeskTIL/__MACOSX/DeskTIL/video/._video149.mp4"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "num_videos": 11990,
+  "num_readable_videos": 11776,
+  "num_annotation_like_files": 22317,
+  "num_readable_annotation_like_files": 22300,
+  "videos_by_root": {
+    "data": 11987,
+    "external": 3
+  },
+  "annotations_by_root": {
+    "data": 22287,
+    "external": 24,
+    "reports": 6
+  }
+}

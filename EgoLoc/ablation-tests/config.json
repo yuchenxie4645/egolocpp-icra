@@ -1,0 +1,91 @@
+{
+  "action": "Grasping the object",
+  "adapters": {
+    "contact": "/home/EgoLoc/training/v3-grpo/contact_sft_grpo_adapter",
+    "separation": "/home/EgoLoc/training/v3-grpo/separation_sft_grpo_adapter"
+  },
+  "backend": {
+    "attention": {
+      "text": "sdpa",
+      "vision": "sdpa"
+    },
+    "cuda_visible_devices": "1",
+    "decode": {
+      "do_sample": true,
+      "enable_thinking": false,
+      "frequency_penalty": 0.0,
+      "max_new_tokens": 200,
+      "presence_penalty": 0.0,
+      "temperature": 0.1,
+      "top_p": 0.5
+    },
+    "name": "transformers-nf4",
+    "persistent_process": true,
+    "quantization": {
+      "bnb_4bit_compute_dtype": "bfloat16",
+      "bnb_4bit_quant_type": "nf4",
+      "bnb_4bit_use_double_quant": true,
+      "load_in_4bit": true
+    }
+  },
+  "dataset": "OccluBench",
+  "expected": {
+    "events": 654,
+    "sequences": 327,
+    "trials": 5886,
+    "unavailable_labels": 0
+  },
+  "grid_size": 3,
+  "max_feedbacks": 1,
+  "mode_semantics": {
+    "pinch": {
+      "candidates": "relative pinch-distance minima plus/minus one frame",
+      "fallback": "chronological",
+      "feedback": [
+        "visual"
+      ],
+      "reads": [
+        "pinch"
+      ]
+    },
+    "speed": {
+      "candidates": "top four lowest nonzero hand-speed frames",
+      "fallback": "speed-ranked",
+      "feedback": [
+        "visual",
+        "speed"
+      ],
+      "reads": [
+        "speed"
+      ]
+    },
+    "speed_pinch": {
+      "candidates": "speed union pinch",
+      "fallback": "speed-ranked",
+      "feedback": [
+        "visual",
+        "speed"
+      ],
+      "reads": [
+        "speed",
+        "pinch"
+      ]
+    }
+  },
+  "model": "Qwen/Qwen3.5-9B",
+  "protocol_version": "occlubench-egoloc-sampling-ablation-v1",
+  "seed_fields": [
+    "episode",
+    "task",
+    "trial"
+  ],
+  "tasks": [
+    "contact",
+    "separation"
+  ],
+  "trials": [
+    0,
+    1,
+    2
+  ]
+}

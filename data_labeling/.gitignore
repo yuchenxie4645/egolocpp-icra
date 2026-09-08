@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Secrets / local credentials
+*.env
+auth.env
+.env
+.secrets/
+
+# Large data
+data/
+*.mp4
+*.mkv
+*.avi
+*.mov
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+*.7z
+*.rar
+*.pkl
+*.npy
+*.npz
+*.ply
+
+# Reports are allowed
+!reports/
+!reports/*.md
+!reports/*.json
+!reports/*.csv
+!reports/*.txt
+
+# External repos should not be committed
+external/
+
+# Logs
+*.log

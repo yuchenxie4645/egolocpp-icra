@@ -1,0 +1,1026 @@
+.
+├── [0B] data
+│   ├── [0B] DeskTIL
+│   │   ├── [0B] annotations
+│   │   │   └── [13K] label.xlsx
+│   │   ├── [0B] raw
+│   │   └── [0B] videos
+│   │       ├── [225K] video100.mp4
+│   │       ├── [228K] video101.mp4
+│   │       ├── [221K] video102.mp4
+│   │       ├── [212K] video103.mp4
+│   │       ├── [290K] video104.mp4
+│   │       ├── [247K] video105.mp4
+│   │       ├── [221K] video106.mp4
+│   │       ├── [254K] video107.mp4
+│   │       ├── [254K] video108.mp4
+│   │       ├── [231K] video109.mp4
+│   │       ├── [203K] video110.mp4
+│   │       ├── [191K] video111.mp4
+│   │       ├── [229K] video112.mp4
+│   │       ├── [251K] video113.mp4
+│   │       ├── [253K] video114.mp4
+│   │       ├── [193K] video115.mp4
+│   │       ├── [199K] video116.mp4
+│   │       ├── [199K] video117.mp4
+│   │       ├── [237K] video118.mp4
+│   │       ├── [225K] video119.mp4
+│   │       ├── [187K] video120.mp4
+│   │       ├── [214K] video121.mp4
+│   │       ├── [204K] video122.mp4
+│   │       ├── [160K] video123.mp4
+│   │       ├── [202K] video124.mp4
+│   │       ├── [208K] video125.mp4
+│   │       ├── [138K] video126.mp4
+│   │       ├── [162K] video127.mp4
+│   │       ├── [177K] video128.mp4
+│   │       ├── [241K] video129.mp4
+│   │       ├── [210K] video130.mp4
+│   │       ├── [176K] video131.mp4
+│   │       ├── [244K] video132.mp4
+│   │       ├── [209K] video133.mp4
+│   │       ├── [214K] video134.mp4
+│   │       ├── [220K] video135.mp4
+│   │       ├── [213K] video136.mp4
+│   │       ├── [195K] video137.mp4
+│   │       ├── [179K] video138.mp4
+│   │       ├── [194K] video139.mp4
+│   │       ├── [171K] video140.mp4
+│   │       ├── [243K] video141.mp4
+│   │       ├── [192K] video142.mp4
+│   │       ├── [210K] video143.mp4
+│   │       ├── [185K] video144.mp4
+│   │       ├── [213K] video145.mp4
+│   │       ├── [177K] video146.mp4
+│   │       ├── [205K] video147.mp4
+│   │       ├── [196K] video148.mp4
+│   │       ├── [141K] video149.mp4
+│   │       ├── [203K] video150.mp4
+│   │       ├── [186K] video151.mp4
+│   │       ├── [160K] video152.mp4
+│   │       ├── [216K] video153.mp4
+│   │       ├── [192K] video154.mp4
+│   │       ├── [181K] video155.mp4
+│   │       ├── [216K] video156.mp4
+│   │       ├── [193K] video157.mp4
+│   │       ├── [201K] video158.mp4
+│   │       ├── [183K] video159.mp4
+│   │       ├── [204K] video160.mp4
+│   │       ├── [215K] video161.mp4
+│   │       ├── [188K] video162.mp4
+│   │       ├── [199K] video163.mp4
+│   │       ├── [179K] video164.mp4
+│   │       ├── [202K] video165.mp4
+│   │       ├── [209K] video166.mp4
+│   │       ├── [188K] video167.mp4
+│   │       ├── [224K] video168.mp4
+│   │       ├── [193K] video169.mp4
+│   │       ├── [217K] video170.mp4
+│   │       ├── [151K] video171.mp4
+│   │       ├── [208K] video172.mp4
+│   │       ├── [236K] video173.mp4
+│   │       ├── [206K] video174.mp4
+│   │       ├── [221K] video175.mp4
+│   │       ├── [198K] video176.mp4
+│   │       ├── [166K] video177.mp4
+│   │       ├── [172K] video178.mp4
+│   │       ├── [221K] video179.mp4
+│   │       ├── [176K] video180.mp4
+│   │       ├── [276K] video51.mp4
+│   │       ├── [175K] video52.mp4
+│   │       ├── [209K] video53.mp4
+│   │       ├── [234K] video54.mp4
+│   │       ├── [321K] video55.mp4
+│   │       ├── [208K] video56.mp4
+│   │       ├── [205K] video57.mp4
+│   │       ├── [235K] video58.mp4
+│   │       ├── [254K] video59.mp4
+│   │       ├── [241K] video60.mp4
+│   │       ├── [202K] video61.mp4
+│   │       ├── [272K] video62.mp4
+│   │       ├── [233K] video63.mp4
+│   │       ├── [212K] video64.mp4
+│   │       ├── [204K] video65.mp4
+│   │       ├── [252K] video66.mp4
+│   │       ├── [232K] video67.mp4
+│   │       ├── [252K] video68.mp4
+│   │       ├── [218K] video69.mp4
+│   │       ├── [224K] video70.mp4
+│   │       ├── [250K] video71.mp4
+│   │       ├── [222K] video72.mp4
+│   │       ├── [221K] video73.mp4
+│   │       ├── [257K] video74.mp4
+│   │       ├── [236K] video75.mp4
+│   │       ├── [262K] video76.mp4
+│   │       ├── [218K] video77.mp4
+│   │       ├── [214K] video78.mp4
+│   │       ├── [231K] video79.mp4
+│   │       ├── [240K] video80.mp4
+│   │       ├── [219K] video81.mp4
+│   │       ├── [153K] video82.mp4
+│   │       ├── [236K] video83.mp4
+│   │       ├── [253K] video84.mp4
+│   │       ├── [248K] video85.mp4
+│   │       ├── [254K] video86.mp4
+│   │       ├── [232K] video87.mp4
+│   │       ├── [206K] video88.mp4
+│   │       ├── [218K] video89.mp4
+│   │       ├── [194K] video90.mp4
+│   │       ├── [222K] video91.mp4
+│   │       ├── [246K] video92.mp4
+│   │       ├── [238K] video93.mp4
+│   │       ├── [216K] video94.mp4
+│   │       ├── [225K] video95.mp4
+│   │       ├── [176K] video96.mp4
+│   │       ├── [222K] video97.mp4
+│   │       ├── [213K] video98.mp4
+│   │       └── [166K] video99.mp4
+│   ├── [0B] EgoLoc_samples
+│   │   ├── [0B] DeskTIL
+│   │   │   ├── [0B] __MACOSX
+│   │   │   │   ├── [0B] DeskTIL
+│   │   │   │   │   ├── [0B] video
+│   │   │   │   │   ├── [120B] ._.DS_Store
+│   │   │   │   │   ├── [275B] ._label.xlsx
+│   │   │   │   │   └── [176B] ._video
+│   │   │   │   └── [176B] ._DeskTIL
+│   │   │   └── [0B] DeskTIL
+│   │   │       ├── [0B] video
+│   │   │       │   ├── [225K] video100.mp4
+│   │   │       │   ├── [228K] video101.mp4
+│   │   │       │   ├── [221K] video102.mp4
+│   │   │       │   ├── [212K] video103.mp4
+│   │   │       │   ├── [290K] video104.mp4
+│   │   │       │   ├── [247K] video105.mp4
+│   │   │       │   ├── [221K] video106.mp4
+│   │   │       │   ├── [254K] video107.mp4
+│   │   │       │   ├── [254K] video108.mp4
+│   │   │       │   ├── [231K] video109.mp4
+│   │   │       │   ├── [203K] video110.mp4
+│   │   │       │   ├── [191K] video111.mp4
+│   │   │       │   ├── [229K] video112.mp4
+│   │   │       │   ├── [251K] video113.mp4
+│   │   │       │   ├── [253K] video114.mp4
+│   │   │       │   ├── [193K] video115.mp4
+│   │   │       │   ├── [199K] video116.mp4
+│   │   │       │   ├── [199K] video117.mp4
+│   │   │       │   ├── [237K] video118.mp4
+│   │   │       │   ├── [225K] video119.mp4
+│   │   │       │   ├── [187K] video120.mp4
+│   │   │       │   ├── [214K] video121.mp4
+│   │   │       │   ├── [204K] video122.mp4
+│   │   │       │   ├── [160K] video123.mp4
+│   │   │       │   ├── [202K] video124.mp4
+│   │   │       │   ├── [208K] video125.mp4
+│   │   │       │   ├── [138K] video126.mp4
+│   │   │       │   ├── [162K] video127.mp4
+│   │   │       │   ├── [177K] video128.mp4
+│   │   │       │   ├── [241K] video129.mp4
+│   │   │       │   ├── [210K] video130.mp4
+│   │   │       │   ├── [176K] video131.mp4
+│   │   │       │   ├── [244K] video132.mp4
+│   │   │       │   ├── [209K] video133.mp4
+│   │   │       │   ├── [214K] video134.mp4
+│   │   │       │   ├── [220K] video135.mp4
+│   │   │       │   ├── [213K] video136.mp4
+│   │   │       │   ├── [195K] video137.mp4
+│   │   │       │   ├── [179K] video138.mp4
+│   │   │       │   ├── [194K] video139.mp4
+│   │   │       │   ├── [171K] video140.mp4
+│   │   │       │   ├── [243K] video141.mp4
+│   │   │       │   ├── [192K] video142.mp4
+│   │   │       │   ├── [210K] video143.mp4
+│   │   │       │   ├── [185K] video144.mp4
+│   │   │       │   ├── [213K] video145.mp4
+│   │   │       │   ├── [177K] video146.mp4
+│   │   │       │   ├── [205K] video147.mp4
+│   │   │       │   ├── [196K] video148.mp4
+│   │   │       │   ├── [141K] video149.mp4
+│   │   │       │   ├── [203K] video150.mp4
+│   │   │       │   ├── [186K] video151.mp4
+│   │   │       │   ├── [160K] video152.mp4
+│   │   │       │   ├── [216K] video153.mp4
+│   │   │       │   ├── [192K] video154.mp4
+│   │   │       │   ├── [181K] video155.mp4
+│   │   │       │   ├── [216K] video156.mp4
+│   │   │       │   ├── [193K] video157.mp4
+│   │   │       │   ├── [201K] video158.mp4
+│   │   │       │   ├── [183K] video159.mp4
+│   │   │       │   ├── [204K] video160.mp4
+│   │   │       │   ├── [215K] video161.mp4
+│   │   │       │   ├── [188K] video162.mp4
+│   │   │       │   ├── [199K] video163.mp4
+│   │   │       │   ├── [179K] video164.mp4
+│   │   │       │   ├── [202K] video165.mp4
+│   │   │       │   ├── [209K] video166.mp4
+│   │   │       │   ├── [188K] video167.mp4
+│   │   │       │   ├── [224K] video168.mp4
+│   │   │       │   ├── [193K] video169.mp4
+│   │   │       │   ├── [217K] video170.mp4
+│   │   │       │   ├── [151K] video171.mp4
+│   │   │       │   ├── [208K] video172.mp4
+│   │   │       │   ├── [236K] video173.mp4
+│   │   │       │   ├── [206K] video174.mp4
+│   │   │       │   ├── [221K] video175.mp4
+│   │   │       │   ├── [198K] video176.mp4
+│   │   │       │   ├── [166K] video177.mp4
+│   │   │       │   ├── [172K] video178.mp4
+│   │   │       │   ├── [221K] video179.mp4
+│   │   │       │   ├── [176K] video180.mp4
+│   │   │       │   ├── [276K] video51.mp4
+│   │   │       │   ├── [175K] video52.mp4
+│   │   │       │   ├── [209K] video53.mp4
+│   │   │       │   ├── [234K] video54.mp4
+│   │   │       │   ├── [321K] video55.mp4
+│   │   │       │   ├── [208K] video56.mp4
+│   │   │       │   ├── [205K] video57.mp4
+│   │   │       │   ├── [235K] video58.mp4
+│   │   │       │   ├── [254K] video59.mp4
+│   │   │       │   ├── [241K] video60.mp4
+│   │   │       │   ├── [202K] video61.mp4
+│   │   │       │   ├── [272K] video62.mp4
+│   │   │       │   ├── [233K] video63.mp4
+│   │   │       │   ├── [212K] video64.mp4
+│   │   │       │   ├── [204K] video65.mp4
+│   │   │       │   ├── [252K] video66.mp4
+│   │   │       │   ├── [232K] video67.mp4
+│   │   │       │   ├── [252K] video68.mp4
+│   │   │       │   ├── [218K] video69.mp4
+│   │   │       │   ├── [224K] video70.mp4
+│   │   │       │   ├── [250K] video71.mp4
+│   │   │       │   ├── [222K] video72.mp4
+│   │   │       │   ├── [221K] video73.mp4
+│   │   │       │   ├── [257K] video74.mp4
+│   │   │       │   ├── [236K] video75.mp4
+│   │   │       │   ├── [262K] video76.mp4
+│   │   │       │   ├── [218K] video77.mp4
+│   │   │       │   ├── [214K] video78.mp4
+│   │   │       │   ├── [231K] video79.mp4
+│   │   │       │   ├── [240K] video80.mp4
+│   │   │       │   ├── [219K] video81.mp4
+│   │   │       │   ├── [153K] video82.mp4
+│   │   │       │   ├── [236K] video83.mp4
+│   │   │       │   ├── [253K] video84.mp4
+│   │   │       │   ├── [248K] video85.mp4
+│   │   │       │   ├── [254K] video86.mp4
+│   │   │       │   ├── [232K] video87.mp4
+│   │   │       │   ├── [206K] video88.mp4
+│   │   │       │   ├── [218K] video89.mp4
+│   │   │       │   ├── [194K] video90.mp4
+│   │   │       │   ├── [222K] video91.mp4
+│   │   │       │   ├── [246K] video92.mp4
+│   │   │       │   ├── [238K] video93.mp4
+│   │   │       │   ├── [216K] video94.mp4
+│   │   │       │   ├── [225K] video95.mp4
+│   │   │       │   ├── [176K] video96.mp4
+│   │   │       │   ├── [222K] video97.mp4
+│   │   │       │   ├── [213K] video98.mp4
+│   │   │       │   └── [166K] video99.mp4
+│   │   │       ├── [6K] .DS_Store
+│   │   │       └── [13K] label.xlsx
+│   │   └── [0B] EgoPAT3D
+│   │       ├── [0B] __MACOSX
+│   │       │   ├── [0B] EgoPAT3D
+│   │       │   │   ├── [0B] video
+│   │       │   │   ├── [275B] ._label.xlsx
+│   │       │   │   └── [176B] ._video
+│   │       │   └── [176B] ._EgoPAT3D
+│   │       └── [0B] EgoPAT3D
+│   │           ├── [0B] video
+│   │           │   ├── [299K] video1.mp4
+│   │           │   ├── [319K] video10.mp4
+│   │           │   ├── [259K] video100.mp4
+│   │           │   ├── [202K] video101.mp4
+│   │           │   ├── [354K] video102.mp4
+│   │           │   ├── [299K] video103.mp4
+│   │           │   ├── [187K] video104.mp4
+│   │           │   ├── [282K] video105.mp4
+│   │           │   ├── [254K] video106.mp4
+│   │           │   ├── [280K] video107.mp4
+│   │           │   ├── [411K] video108.mp4
+│   │           │   ├── [381K] video109.mp4
+│   │           │   ├── [251K] video110.mp4
+│   │           │   ├── [280K] video111.mp4
+│   │           │   ├── [288K] video112.mp4
+│   │           │   ├── [349K] video13.mp4
+│   │           │   ├── [332K] video14.mp4
+│   │           │   ├── [297K] video15.mp4
+│   │           │   ├── [348K] video16.mp4
+│   │           │   ├── [281K] video19.mp4
+│   │           │   ├── [294K] video2.mp4
+│   │           │   ├── [214K] video21.mp4
+│   │           │   ├── [385K] video22.mp4
+│   │           │   ├── [277K] video23.mp4
+│   │           │   ├── [300K] video28.mp4
+│   │           │   ├── [299K] video29.mp4
+│   │           │   ├── [244K] video3.mp4
+│   │           │   ├── [257K] video32.mp4
+│   │           │   ├── [276K] video33.mp4
+│   │           │   ├── [284K] video34.mp4
+│   │           │   ├── [348K] video36.mp4
+│   │           │   ├── [303K] video4.mp4
+│   │           │   ├── [320K] video40.mp4
+│   │           │   ├── [375K] video42.mp4
+│   │           │   ├── [320K] video43.mp4
+│   │           │   ├── [299K] video44.mp4
+│   │           │   ├── [327K] video46.mp4
+│   │           │   ├── [260K] video49.mp4
+│   │           │   ├── [355K] video50.mp4
+│   │           │   ├── [362K] video54.mp4
+│   │           │   ├── [287K] video55.mp4
+│   │           │   ├── [386K] video56.mp4
+│   │           │   ├── [296K] video58.mp4
+│   │           │   ├── [273K] video6.mp4
+│   │           │   ├── [309K] video61.mp4
+│   │           │   ├── [369K] video62.mp4
+│   │           │   ├── [344K] video64.mp4
+│   │           │   ├── [311K] video65.mp4
+│   │           │   ├── [283K] video66.mp4
+│   │           │   ├── [353K] video67.mp4
+│   │           │   ├── [353K] video68.mp4
+│   │           │   ├── [251K] video69.mp4
+│   │           │   ├── [305K] video70.mp4
+│   │           │   ├── [221K] video71.mp4
+│   │           │   ├── [352K] video72.mp4
+│   │           │   ├── [366K] video73.mp4
+│   │           │   ├── [322K] video74.mp4
+│   │           │   ├── [303K] video75.mp4
+│   │           │   ├── [314K] video76.mp4
+│   │           │   ├── [392K] video77.mp4
+│   │           │   ├── [287K] video78.mp4
+│   │           │   ├── [367K] video79.mp4
+│   │           │   ├── [271K] video8.mp4
+│   │           │   ├── [189K] video80.mp4
+│   │           │   ├── [291K] video81.mp4
+│   │           │   ├── [370K] video82.mp4
+│   │           │   ├── [490K] video83.mp4
+│   │           │   ├── [401K] video84.mp4
+│   │           │   ├── [366K] video85.mp4
+│   │           │   ├── [304K] video86.mp4
+│   │           │   ├── [358K] video87.mp4
+│   │           │   ├── [304K] video88.mp4
+│   │           │   ├── [357K] video89.mp4
+│   │           │   ├── [425K] video9.mp4
+│   │           │   ├── [362K] video90.mp4
+│   │           │   ├── [199K] video91.mp4
+│   │           │   ├── [305K] video92.mp4
+│   │           │   ├── [306K] video93.mp4
+│   │           │   ├── [272K] video94.mp4
+│   │           │   ├── [288K] video95.mp4
+│   │           │   ├── [342K] video96.mp4
+│   │           │   ├── [371K] video97.mp4
+│   │           │   ├── [208K] video98.mp4
+│   │           │   └── [322K] video99.mp4
+│   │           └── [11K] label.xlsx
+│   ├── [0B] EgoPAT3D
+│   │   ├── [0B] EgoPAT3D-postproc
+│   │   │   ├── [0B] odometry
+│   │   │   │   ├── [0B] 1
+│   │   │   │   │   ├── [0B] bathroomCabinet_1
+│   │   │   │   │   ├── [0B] bathroomCabinet_10
+│   │   │   │   │   ├── [0B] bathroomCabinet_2
+│   │   │   │   │   ├── [0B] bathroomCabinet_3
+│   │   │   │   │   ├── [0B] bathroomCabinet_4
+│   │   │   │   │   ├── [0B] bathroomCabinet_5
+│   │   │   │   │   ├── [0B] bathroomCabinet_6
+│   │   │   │   │   ├── [0B] bathroomCabinet_7
+│   │   │   │   │   ├── [0B] bathroomCabinet_8
+│   │   │   │   │   └── [0B] bathroomCabinet_9
+│   │   │   │   ├── [0B] 10
+│   │   │   │   │   ├── [0B] nightstand_1
+│   │   │   │   │   ├── [0B] nightstand_10
+│   │   │   │   │   ├── [0B] nightstand_2
+│   │   │   │   │   ├── [0B] nightstand_3
+│   │   │   │   │   ├── [0B] nightstand_4
+│   │   │   │   │   ├── [0B] nightstand_5
+│   │   │   │   │   ├── [0B] nightstand_6
+│   │   │   │   │   ├── [0B] nightstand_7
+│   │   │   │   │   ├── [0B] nightstand_8
+│   │   │   │   │   └── [0B] nightstand_9
+│   │   │   │   ├── [0B] 11
+│   │   │   │   │   ├── [0B] pantryShelf_1
+│   │   │   │   │   ├── [0B] pantryShelf_10
+│   │   │   │   │   ├── [0B] pantryShelf_2
+│   │   │   │   │   ├── [0B] pantryShelf_3
+│   │   │   │   │   ├── [0B] pantryShelf_4
+│   │   │   │   │   ├── [0B] pantryShelf_5
+│   │   │   │   │   ├── [0B] pantryShelf_6
+│   │   │   │   │   ├── [0B] pantryShelf_7
+│   │   │   │   │   ├── [0B] pantryShelf_8
+│   │   │   │   │   └── [0B] pantryShelf_9
+│   │   │   │   ├── [0B] 12
+│   │   │   │   │   ├── [0B] smallBins_1
+│   │   │   │   │   ├── [0B] smallBins_10
+│   │   │   │   │   ├── [0B] smallBins_2
+│   │   │   │   │   ├── [0B] smallBins_3
+│   │   │   │   │   ├── [0B] smallBins_4
+│   │   │   │   │   ├── [0B] smallBins_5
+│   │   │   │   │   ├── [0B] smallBins_6
+│   │   │   │   │   ├── [0B] smallBins_7
+│   │   │   │   │   ├── [0B] smallBins_8
+│   │   │   │   │   └── [0B] smallBins_9
+│   │   │   │   ├── [0B] 13
+│   │   │   │   │   ├── [0B] stoveTop_1
+│   │   │   │   │   ├── [0B] stoveTop_10
+│   │   │   │   │   ├── [0B] stoveTop_2
+│   │   │   │   │   ├── [0B] stoveTop_3
+│   │   │   │   │   ├── [0B] stoveTop_4
+│   │   │   │   │   ├── [0B] stoveTop_5
+│   │   │   │   │   ├── [0B] stoveTop_6
+│   │   │   │   │   ├── [0B] stoveTop_7
+│   │   │   │   │   ├── [0B] stoveTop_8
+│   │   │   │   │   └── [0B] stoveTop_9
+│   │   │   │   ├── [0B] 14
+│   │   │   │   │   ├── [0B] windowsillAC_10
+│   │   │   │   │   ├── [0B] windowsillAC_2
+│   │   │   │   │   ├── [0B] windowsillAC_3
+│   │   │   │   │   ├── [0B] windowsillAC_4
+│   │   │   │   │   ├── [0B] windowsillAC_5
+│   │   │   │   │   ├── [0B] windowsillAC_6
+│   │   │   │   │   ├── [0B] windowsillAC_7
+│   │   │   │   │   ├── [0B] windowsillAC_8
+│   │   │   │   │   └── [0B] windowsillAC_9
+│   │   │   │   ├── [0B] 15
+│   │   │   │   │   ├── [0B] woodenTable_1
+│   │   │   │   │   ├── [0B] woodenTable_10
+│   │   │   │   │   ├── [0B] woodenTable_2
+│   │   │   │   │   ├── [0B] woodenTable_3
+│   │   │   │   │   ├── [0B] woodenTable_4
+│   │   │   │   │   ├── [0B] woodenTable_5
+│   │   │   │   │   ├── [0B] woodenTable_6
+│   │   │   │   │   ├── [0B] woodenTable_7
+│   │   │   │   │   ├── [0B] woodenTable_8
+│   │   │   │   │   └── [0B] woodenTable_9
+│   │   │   │   ├── [0B] 2
+│   │   │   │   │   ├── [0B] bathroomCounter_1
+│   │   │   │   │   ├── [0B] bathroomCounter_10
+│   │   │   │   │   ├── [0B] bathroomCounter_2
+│   │   │   │   │   ├── [0B] bathroomCounter_3
+│   │   │   │   │   ├── [0B] bathroomCounter_4
+│   │   │   │   │   ├── [0B] bathroomCounter_5
+│   │   │   │   │   ├── [0B] bathroomCounter_6
+│   │   │   │   │   ├── [0B] bathroomCounter_7
+│   │   │   │   │   ├── [0B] bathroomCounter_8
+│   │   │   │   │   └── [0B] bathroomCounter_9
+│   │   │   │   ├── [0B] 3
+│   │   │   │   │   ├── [0B] bin_1
+│   │   │   │   │   ├── [0B] bin_10
+│   │   │   │   │   ├── [0B] bin_2
+│   │   │   │   │   ├── [0B] bin_3
+│   │   │   │   │   ├── [0B] bin_4
+│   │   │   │   │   ├── [0B] bin_5
+│   │   │   │   │   ├── [0B] bin_6
+│   │   │   │   │   ├── [0B] bin_7
+│   │   │   │   │   └── [0B] bin_9
+│   │   │   │   ├── [0B] 4
+│   │   │   │   │   ├── [0B] desk_1
+│   │   │   │   │   ├── [0B] desk_10
+│   │   │   │   │   ├── [0B] desk_2
+│   │   │   │   │   ├── [0B] desk_3
+│   │   │   │   │   ├── [0B] desk_4
+│   │   │   │   │   ├── [0B] desk_5
+│   │   │   │   │   ├── [0B] desk_6
+│   │   │   │   │   ├── [0B] desk_7
+│   │   │   │   │   ├── [0B] desk_8
+│   │   │   │   │   └── [0B] desk_9
+│   │   │   │   ├── [0B] 5
+│   │   │   │   │   ├── [0B] drawer_1
+│   │   │   │   │   ├── [0B] drawer_2
+│   │   │   │   │   ├── [0B] drawer_3
+│   │   │   │   │   ├── [0B] drawer_4
+│   │   │   │   │   ├── [0B] drawer_5
+│   │   │   │   │   ├── [0B] drawer_6
+│   │   │   │   │   ├── [0B] drawer_7
+│   │   │   │   │   ├── [0B] drawer_8
+│   │   │   │   │   └── [0B] drawer_9
+│   │   │   │   ├── [0B] 6
+│   │   │   │   │   ├── [0B] kitchenCounter_1
+│   │   │   │   │   ├── [0B] kitchenCounter_2
+│   │   │   │   │   ├── [0B] kitchenCounter_3
+│   │   │   │   │   ├── [0B] kitchenCounter_4
+│   │   │   │   │   ├── [0B] kitchenCounter_5
+│   │   │   │   │   ├── [0B] kitchenCounter_6
+│   │   │   │   │   ├── [0B] kitchenCounter_7
+│   │   │   │   │   ├── [0B] kitchenCounter_8
+│   │   │   │   │   └── [0B] kitchenCounter_9
+│   │   │   │   ├── [0B] 7
+│   │   │   │   │   ├── [0B] kitchenCupboard_1
+│   │   │   │   │   ├── [0B] kitchenCupboard_10
+│   │   │   │   │   ├── [0B] kitchenCupboard_2
+│   │   │   │   │   ├── [0B] kitchenCupboard_3
+│   │   │   │   │   ├── [0B] kitchenCupboard_4
+│   │   │   │   │   ├── [0B] kitchenCupboard_5
+│   │   │   │   │   ├── [0B] kitchenCupboard_6
+│   │   │   │   │   ├── [0B] kitchenCupboard_7
+│   │   │   │   │   ├── [0B] kitchenCupboard_8
+│   │   │   │   │   └── [0B] kitchenCupboard_9
+│   │   │   │   └── [0B] 9
+│   │   │   │       ├── [0B] microwave_1
+│   │   │   │       ├── [0B] microwave_10
+│   │   │   │       ├── [0B] microwave_2
+│   │   │   │       ├── [0B] microwave_3
+│   │   │   │       ├── [0B] microwave_4
+│   │   │   │       ├── [0B] microwave_5
+│   │   │   │       ├── [0B] microwave_6
+│   │   │   │       ├── [0B] microwave_7
+│   │   │   │       ├── [0B] microwave_8
+│   │   │   │       └── [0B] microwave_9
+│   │   │   ├── [0B] trajectory_repair
+│   │   │   │   ├── [0B] 1
+│   │   │   │   │   ├── [0B] bathroomCabinet_1
+│   │   │   │   │   ├── [0B] bathroomCabinet_10
+│   │   │   │   │   ├── [0B] bathroomCabinet_2
+│   │   │   │   │   ├── [0B] bathroomCabinet_3
+│   │   │   │   │   ├── [0B] bathroomCabinet_4
+│   │   │   │   │   ├── [0B] bathroomCabinet_5
+│   │   │   │   │   ├── [0B] bathroomCabinet_6
+│   │   │   │   │   ├── [0B] bathroomCabinet_7
+│   │   │   │   │   ├── [0B] bathroomCabinet_8
+│   │   │   │   │   └── [0B] bathroomCabinet_9
+│   │   │   │   ├── [0B] 10
+│   │   │   │   │   ├── [0B] nightstand_1
+│   │   │   │   │   ├── [0B] nightstand_10
+│   │   │   │   │   ├── [0B] nightstand_2
+│   │   │   │   │   ├── [0B] nightstand_3
+│   │   │   │   │   ├── [0B] nightstand_4
+│   │   │   │   │   ├── [0B] nightstand_5
+│   │   │   │   │   ├── [0B] nightstand_6
+│   │   │   │   │   ├── [0B] nightstand_7
+│   │   │   │   │   ├── [0B] nightstand_8
+│   │   │   │   │   └── [0B] nightstand_9
+│   │   │   │   ├── [0B] 11
+│   │   │   │   │   ├── [0B] pantryShelf_1
+│   │   │   │   │   ├── [0B] pantryShelf_10
+│   │   │   │   │   ├── [0B] pantryShelf_2
+│   │   │   │   │   ├── [0B] pantryShelf_3
+│   │   │   │   │   ├── [0B] pantryShelf_4
+│   │   │   │   │   ├── [0B] pantryShelf_5
+│   │   │   │   │   ├── [0B] pantryShelf_6
+│   │   │   │   │   ├── [0B] pantryShelf_7
+│   │   │   │   │   ├── [0B] pantryShelf_8
+│   │   │   │   │   └── [0B] pantryShelf_9
+│   │   │   │   ├── [0B] 12
+│   │   │   │   │   ├── [0B] smallBins_1
+│   │   │   │   │   ├── [0B] smallBins_10
+│   │   │   │   │   ├── [0B] smallBins_2
+│   │   │   │   │   ├── [0B] smallBins_3
+│   │   │   │   │   ├── [0B] smallBins_4
+│   │   │   │   │   ├── [0B] smallBins_5
+│   │   │   │   │   ├── [0B] smallBins_6
+│   │   │   │   │   ├── [0B] smallBins_7
+│   │   │   │   │   ├── [0B] smallBins_8
+│   │   │   │   │   └── [0B] smallBins_9
+│   │   │   │   ├── [0B] 13
+│   │   │   │   │   ├── [0B] stoveTop_1
+│   │   │   │   │   ├── [0B] stoveTop_10
+│   │   │   │   │   ├── [0B] stoveTop_2
+│   │   │   │   │   ├── [0B] stoveTop_3
+│   │   │   │   │   ├── [0B] stoveTop_4
+│   │   │   │   │   ├── [0B] stoveTop_5
+│   │   │   │   │   ├── [0B] stoveTop_6
+│   │   │   │   │   ├── [0B] stoveTop_7
+│   │   │   │   │   ├── [0B] stoveTop_8
+│   │   │   │   │   └── [0B] stoveTop_9
+│   │   │   │   ├── [0B] 14
+│   │   │   │   │   ├── [0B] windowsillAC_10
+│   │   │   │   │   ├── [0B] windowsillAC_2
+│   │   │   │   │   ├── [0B] windowsillAC_3
+│   │   │   │   │   ├── [0B] windowsillAC_4
+│   │   │   │   │   ├── [0B] windowsillAC_5
+│   │   │   │   │   ├── [0B] windowsillAC_6
+│   │   │   │   │   ├── [0B] windowsillAC_7
+│   │   │   │   │   ├── [0B] windowsillAC_8
+│   │   │   │   │   └── [0B] windowsillAC_9
+│   │   │   │   ├── [0B] 15
+│   │   │   │   │   ├── [0B] woodenTable_1
+│   │   │   │   │   ├── [0B] woodenTable_10
+│   │   │   │   │   ├── [0B] woodenTable_2
+│   │   │   │   │   ├── [0B] woodenTable_3
+│   │   │   │   │   ├── [0B] woodenTable_4
+│   │   │   │   │   ├── [0B] woodenTable_5
+│   │   │   │   │   ├── [0B] woodenTable_6
+│   │   │   │   │   ├── [0B] woodenTable_7
+│   │   │   │   │   ├── [0B] woodenTable_8
+│   │   │   │   │   └── [0B] woodenTable_9
+│   │   │   │   ├── [0B] 2
+│   │   │   │   │   ├── [0B] bathroomCounter_1
+│   │   │   │   │   ├── [0B] bathroomCounter_10
+│   │   │   │   │   ├── [0B] bathroomCounter_2
+│   │   │   │   │   ├── [0B] bathroomCounter_3
+│   │   │   │   │   ├── [0B] bathroomCounter_4
+│   │   │   │   │   ├── [0B] bathroomCounter_5
+│   │   │   │   │   ├── [0B] bathroomCounter_6
+│   │   │   │   │   ├── [0B] bathroomCounter_7
+│   │   │   │   │   ├── [0B] bathroomCounter_8
+│   │   │   │   │   └── [0B] bathroomCounter_9
+│   │   │   │   ├── [0B] 3
+│   │   │   │   │   ├── [0B] bin_1
+│   │   │   │   │   ├── [0B] bin_10
+│   │   │   │   │   ├── [0B] bin_2
+│   │   │   │   │   ├── [0B] bin_3
+│   │   │   │   │   ├── [0B] bin_4
+│   │   │   │   │   ├── [0B] bin_5
+│   │   │   │   │   ├── [0B] bin_6
+│   │   │   │   │   ├── [0B] bin_7
+│   │   │   │   │   └── [0B] bin_9
+│   │   │   │   ├── [0B] 4
+│   │   │   │   │   ├── [0B] desk_1
+│   │   │   │   │   ├── [0B] desk_10
+│   │   │   │   │   ├── [0B] desk_2
+│   │   │   │   │   ├── [0B] desk_3
+│   │   │   │   │   ├── [0B] desk_4
+│   │   │   │   │   ├── [0B] desk_5
+│   │   │   │   │   ├── [0B] desk_6
+│   │   │   │   │   ├── [0B] desk_7
+│   │   │   │   │   ├── [0B] desk_8
+│   │   │   │   │   └── [0B] desk_9
+│   │   │   │   ├── [0B] 5
+│   │   │   │   │   ├── [0B] drawer_1
+│   │   │   │   │   ├── [0B] drawer_2
+│   │   │   │   │   ├── [0B] drawer_3
+│   │   │   │   │   ├── [0B] drawer_4
+│   │   │   │   │   ├── [0B] drawer_5
+│   │   │   │   │   ├── [0B] drawer_6
+│   │   │   │   │   ├── [0B] drawer_7
+│   │   │   │   │   ├── [0B] drawer_8
+│   │   │   │   │   └── [0B] drawer_9
+│   │   │   │   ├── [0B] 6
+│   │   │   │   │   ├── [0B] kitchenCounter_1
+│   │   │   │   │   ├── [0B] kitchenCounter_2
+│   │   │   │   │   ├── [0B] kitchenCounter_3
+│   │   │   │   │   ├── [0B] kitchenCounter_4
+│   │   │   │   │   ├── [0B] kitchenCounter_5
+│   │   │   │   │   ├── [0B] kitchenCounter_6
+│   │   │   │   │   ├── [0B] kitchenCounter_7
+│   │   │   │   │   ├── [0B] kitchenCounter_8
+│   │   │   │   │   └── [0B] kitchenCounter_9
+│   │   │   │   ├── [0B] 7
+│   │   │   │   │   ├── [0B] kitchenCupboard_1
+│   │   │   │   │   ├── [0B] kitchenCupboard_10
+│   │   │   │   │   ├── [0B] kitchenCupboard_2
+│   │   │   │   │   ├── [0B] kitchenCupboard_3
+│   │   │   │   │   ├── [0B] kitchenCupboard_4
+│   │   │   │   │   ├── [0B] kitchenCupboard_5
+│   │   │   │   │   ├── [0B] kitchenCupboard_6
+│   │   │   │   │   ├── [0B] kitchenCupboard_7
+│   │   │   │   │   ├── [0B] kitchenCupboard_8
+│   │   │   │   │   └── [0B] kitchenCupboard_9
+│   │   │   │   └── [0B] 9
+│   │   │   │       ├── [0B] microwave_1
+│   │   │   │       ├── [0B] microwave_10
+│   │   │   │       ├── [0B] microwave_2
+│   │   │   │       ├── [0B] microwave_3
+│   │   │   │       ├── [0B] microwave_4
+│   │   │   │       ├── [0B] microwave_5
+│   │   │   │       ├── [0B] microwave_6
+│   │   │   │       ├── [0B] microwave_7
+│   │   │   │       ├── [0B] microwave_8
+│   │   │   │       └── [0B] microwave_9
+│   │   │   └── [0B] video_clips_hand
+│   │   │       ├── [0B] 1
+│   │   │       │   ├── [0B] bathroomCabinet_1
+│   │   │       │   ├── [0B] bathroomCabinet_10
+│   │   │       │   ├── [0B] bathroomCabinet_2
+│   │   │       │   ├── [0B] bathroomCabinet_3
+│   │   │       │   ├── [0B] bathroomCabinet_4
+│   │   │       │   ├── [0B] bathroomCabinet_5
+│   │   │       │   ├── [0B] bathroomCabinet_6
+│   │   │       │   ├── [0B] bathroomCabinet_7
+│   │   │       │   ├── [0B] bathroomCabinet_8
+│   │   │       │   └── [0B] bathroomCabinet_9
+│   │   │       ├── [0B] 10
+│   │   │       │   ├── [0B] nightstand_1
+│   │   │       │   ├── [0B] nightstand_10
+│   │   │       │   ├── [0B] nightstand_2
+│   │   │       │   ├── [0B] nightstand_3
+│   │   │       │   ├── [0B] nightstand_4
+│   │   │       │   ├── [0B] nightstand_5
+│   │   │       │   ├── [0B] nightstand_6
+│   │   │       │   ├── [0B] nightstand_7
+│   │   │       │   ├── [0B] nightstand_8
+│   │   │       │   └── [0B] nightstand_9
+│   │   │       ├── [0B] 11
+│   │   │       │   ├── [0B] pantryShelf_1
+│   │   │       │   ├── [0B] pantryShelf_10
+│   │   │       │   ├── [0B] pantryShelf_2
+│   │   │       │   ├── [0B] pantryShelf_3
+│   │   │       │   ├── [0B] pantryShelf_4
+│   │   │       │   ├── [0B] pantryShelf_5
+│   │   │       │   ├── [0B] pantryShelf_6
+│   │   │       │   ├── [0B] pantryShelf_7
+│   │   │       │   ├── [0B] pantryShelf_8
+│   │   │       │   └── [0B] pantryShelf_9
+│   │   │       ├── [0B] 12
+│   │   │       │   ├── [0B] smallBins_1
+│   │   │       │   ├── [0B] smallBins_10
+│   │   │       │   ├── [0B] smallBins_2
+│   │   │       │   ├── [0B] smallBins_3
+│   │   │       │   ├── [0B] smallBins_4
+│   │   │       │   ├── [0B] smallBins_5
+│   │   │       │   ├── [0B] smallBins_6
+│   │   │       │   ├── [0B] smallBins_7
+│   │   │       │   ├── [0B] smallBins_8
+│   │   │       │   └── [0B] smallBins_9
+│   │   │       ├── [0B] 13
+│   │   │       │   ├── [0B] stoveTop_1
+│   │   │       │   ├── [0B] stoveTop_10
+│   │   │       │   ├── [0B] stoveTop_2
+│   │   │       │   ├── [0B] stoveTop_3
+│   │   │       │   ├── [0B] stoveTop_4
+│   │   │       │   ├── [0B] stoveTop_5
+│   │   │       │   ├── [0B] stoveTop_6
+│   │   │       │   ├── [0B] stoveTop_7
+│   │   │       │   ├── [0B] stoveTop_8
+│   │   │       │   └── [0B] stoveTop_9
+│   │   │       ├── [0B] 14
+│   │   │       │   ├── [0B] windowsillAC_10
+│   │   │       │   ├── [0B] windowsillAC_2
+│   │   │       │   ├── [0B] windowsillAC_3
+│   │   │       │   ├── [0B] windowsillAC_4
+│   │   │       │   ├── [0B] windowsillAC_5
+│   │   │       │   ├── [0B] windowsillAC_6
+│   │   │       │   ├── [0B] windowsillAC_7
+│   │   │       │   ├── [0B] windowsillAC_8
+│   │   │       │   └── [0B] windowsillAC_9
+│   │   │       ├── [0B] 15
+│   │   │       │   ├── [0B] woodenTable_1
+│   │   │       │   ├── [0B] woodenTable_10
+│   │   │       │   ├── [0B] woodenTable_2
+│   │   │       │   ├── [0B] woodenTable_3
+│   │   │       │   ├── [0B] woodenTable_4
+│   │   │       │   ├── [0B] woodenTable_5
+│   │   │       │   ├── [0B] woodenTable_6
+│   │   │       │   ├── [0B] woodenTable_7
+│   │   │       │   ├── [0B] woodenTable_8
+│   │   │       │   └── [0B] woodenTable_9
+│   │   │       ├── [0B] 2
+│   │   │       │   ├── [0B] bathroomCounter_1
+│   │   │       │   ├── [0B] bathroomCounter_10
+│   │   │       │   ├── [0B] bathroomCounter_2
+│   │   │       │   ├── [0B] bathroomCounter_3
+│   │   │       │   ├── [0B] bathroomCounter_4
+│   │   │       │   ├── [0B] bathroomCounter_5
+│   │   │       │   ├── [0B] bathroomCounter_6
+│   │   │       │   ├── [0B] bathroomCounter_7
+│   │   │       │   ├── [0B] bathroomCounter_8
+│   │   │       │   └── [0B] bathroomCounter_9
+│   │   │       ├── [0B] 3
+│   │   │       │   ├── [0B] bin_1
+│   │   │       │   ├── [0B] bin_10
+│   │   │       │   ├── [0B] bin_2
+│   │   │       │   ├── [0B] bin_3
+│   │   │       │   ├── [0B] bin_4
+│   │   │       │   ├── [0B] bin_5
+│   │   │       │   ├── [0B] bin_6
+│   │   │       │   ├── [0B] bin_7
+│   │   │       │   └── [0B] bin_9
+│   │   │       ├── [0B] 4
+│   │   │       │   ├── [0B] desk_1
+│   │   │       │   ├── [0B] desk_10
+│   │   │       │   ├── [0B] desk_2
+│   │   │       │   ├── [0B] desk_3
+│   │   │       │   ├── [0B] desk_4
+│   │   │       │   ├── [0B] desk_5
+│   │   │       │   ├── [0B] desk_6
+│   │   │       │   ├── [0B] desk_7
+│   │   │       │   ├── [0B] desk_8
+│   │   │       │   └── [0B] desk_9
+│   │   │       ├── [0B] 5
+│   │   │       │   ├── [0B] drawer_1
+│   │   │       │   ├── [0B] drawer_10
+│   │   │       │   ├── [0B] drawer_2
+│   │   │       │   ├── [0B] drawer_3
+│   │   │       │   ├── [0B] drawer_4
+│   │   │       │   ├── [0B] drawer_5
+│   │   │       │   ├── [0B] drawer_6
+│   │   │       │   ├── [0B] drawer_7
+│   │   │       │   ├── [0B] drawer_8
+│   │   │       │   └── [0B] drawer_9
+│   │   │       ├── [0B] 6
+│   │   │       │   ├── [0B] kitchenCounter_1
+│   │   │       │   ├── [0B] kitchenCounter_2
+│   │   │       │   ├── [0B] kitchenCounter_3
+│   │   │       │   ├── [0B] kitchenCounter_4
+│   │   │       │   ├── [0B] kitchenCounter_5
+│   │   │       │   ├── [0B] kitchenCounter_6
+│   │   │       │   ├── [0B] kitchenCounter_7
+│   │   │       │   ├── [0B] kitchenCounter_8
+│   │   │       │   └── [0B] kitchenCounter_9
+│   │   │       ├── [0B] 7
+│   │   │       │   ├── [0B] kitchenCupboard_1
+│   │   │       │   ├── [0B] kitchenCupboard_10
+│   │   │       │   ├── [0B] kitchenCupboard_2
+│   │   │       │   ├── [0B] kitchenCupboard_3
+│   │   │       │   ├── [0B] kitchenCupboard_4
+│   │   │       │   ├── [0B] kitchenCupboard_5
+│   │   │       │   ├── [0B] kitchenCupboard_6
+│   │   │       │   ├── [0B] kitchenCupboard_7
+│   │   │       │   ├── [0B] kitchenCupboard_8
+│   │   │       │   └── [0B] kitchenCupboard_9
+│   │   │       └── [0B] 9
+│   │   │           ├── [0B] microwave_1
+│   │   │           ├── [0B] microwave_10
+│   │   │           ├── [0B] microwave_2
+│   │   │           ├── [0B] microwave_3
+│   │   │           ├── [0B] microwave_4
+│   │   │           ├── [0B] microwave_5
+│   │   │           ├── [0B] microwave_6
+│   │   │           ├── [0B] microwave_7
+│   │   │           ├── [0B] microwave_8
+│   │   │           └── [0B] microwave_9
+│   │   └── [0B] raw
+│   └── [0B] raw_downloads
+│       ├── [0B] desktil
+│       │   └── [27M] DeskTIL.zip
+│       ├── [0B] egoloc
+│       │   └── [25M] EgoPAT3D.zip
+│       ├── [0B] egopat3d
+│       └── [0B] usst
+│           └── [5G] EgoPAT3D-postproc.tar.gz
+├── [0B] external
+│   ├── [0B] EgoLoc
+│   │   ├── [0B] output
+│   │   │   ├── [332K] video1_contact_frame.png
+│   │   │   ├── [50B] video1_result.json
+│   │   │   ├── [323K] video1_separation_frame.png
+│   │   │   ├── [845B] video1_speed.json
+│   │   │   ├── [35K] video1_speed_vis.png
+│   │   │   ├── [357K] video2_contact_frame.png
+│   │   │   ├── [50B] video2_result.json
+│   │   │   ├── [321K] video2_separation_frame.png
+│   │   │   ├── [967B] video2_speed.json
+│   │   │   ├── [35K] video2_speed_vis.png
+│   │   │   ├── [579K] video3_contact_frame.png
+│   │   │   ├── [51B] video3_result.json
+│   │   │   ├── [608K] video3_separation_frame.png
+│   │   │   ├── [3K] video3_speed.json
+│   │   │   ├── [39K] video3_speed_vis.png
+│   │   │   └── [5M] video3_vis.gif
+│   │   ├── [0B] script
+│   │   │   ├── [107B] __init__.py
+│   │   │   ├── [130B] __main__.py
+│   │   │   ├── [6K] cli.py
+│   │   │   ├── [3K] config.py
+│   │   │   ├── [5K] depth_estimation.py
+│   │   │   ├── [6K] feedback.py
+│   │   │   ├── [21K] frame_selection.py
+│   │   │   ├── [10K] hand_detection.py
+│   │   │   ├── [9K] pipeline.py
+│   │   │   ├── [3K] pointcloud.py
+│   │   │   ├── [5K] registration.py
+│   │   │   ├── [5K] speed_computation.py
+│   │   │   ├── [4K] utils.py
+│   │   │   └── [12K] vlm_inference.py
+│   │   ├── [28M] demo.gif
+│   │   ├── [319B] egoloc3d_long.py
+│   │   ├── [52K] egoloc_2D_demo.py
+│   │   ├── [48K] egoloc_3D_demo.py
+│   │   ├── [1K] LICENSE
+│   │   ├── [11K] README.md
+│   │   ├── [50B] requirements.txt
+│   │   ├── [608K] TAL_TIL.png
+│   │   ├── [299K] video1.mp4
+│   │   ├── [303K] video2.mp4
+│   │   └── [617K] video3.mp4
+│   ├── [0B] EgoPAT3D_repo
+│   │   ├── [0B] build_dataset
+│   │   │   ├── [0B] mask_generation
+│   │   │   │   ├── [0B] models
+│   │   │   │   │   ├── [643K] 1.pkl
+│   │   │   │   │   ├── [2M] 10.pkl
+│   │   │   │   │   ├── [720K] 11.pkl
+│   │   │   │   │   ├── [557K] 12.pkl
+│   │   │   │   │   ├── [572K] 13.pkl
+│   │   │   │   │   ├── [367K] 14.pkl
+│   │   │   │   │   ├── [802K] 15.pkl
+│   │   │   │   │   ├── [395K] 2.pkl
+│   │   │   │   │   ├── [346K] 3.pkl
+│   │   │   │   │   ├── [1M] 4.pkl
+│   │   │   │   │   ├── [554K] 5.pkl
+│   │   │   │   │   ├── [693K] 6.pkl
+│   │   │   │   │   ├── [597K] 7.pkl
+│   │   │   │   │   ├── [248K] 8.pkl
+│   │   │   │   │   └── [449K] 9.pkl
+│   │   │   │   ├── [597B] HandPrediction.py
+│   │   │   │   ├── [1K] HandPredictionModel.py
+│   │   │   │   ├── [249K] ModelTraining.ipynb
+│   │   │   │   └── [2K] README.md
+│   │   │   ├── [0B] sbatch_scripts
+│   │   │   │   ├── [863B] run-colorExtraction.s
+│   │   │   │   ├── [808B] run-downloadDataset.s
+│   │   │   │   ├── [640B] run-handPoseEstimation.s
+│   │   │   │   ├── [538B] run-markClipRanges.s
+│   │   │   │   ├── [580B] run-maskGeneration.s
+│   │   │   │   ├── [553B] run-uploadDataset.s
+│   │   │   │   └── [666B] run-zipImgs.s
+│   │   │   └── [5K] README.md
+│   │   ├── [0B] preprocessing
+│   │   │   ├── [0B] imu
+│   │   │   │   ├── [0B] build
+│   │   │   │   │   └── [20B] produce.sh
+│   │   │   │   ├── [229B] CMakeLists.txt
+│   │   │   │   └── [1K] main.c
+│   │   │   ├── [4K] mkv2d2rgbrgb.py
+│   │   │   ├── [772B] README.md
+│   │   │   ├── [11K] realclip2gt.py
+│   │   │   └── [4K] rgbd2pointcloud.py
+│   │   ├── [1K] LICENSE
+│   │   └── [8K] README.md
+│   └── [0B] USST
+│       ├── [0B] assets
+│       │   └── [6M] demo.gif
+│       ├── [0B] config
+│       │   ├── [0B] h2o
+│       │   │   ├── [1K] usst_res18_2d.yml
+│       │   │   └── [1K] usst_res18_3d.yml
+│       │   ├── [1K] usst_res18_2d.yml
+│       │   ├── [1K] usst_res18_3d.yml
+│       │   ├── [1K] usst_res18_local3d.yml
+│       │   ├── [1K] usst_vit_2d.yml
+│       │   ├── [1K] usst_vit_3d.yml
+│       │   └── [1K] usst_vit_local3d.yml
+│       ├── [0B] data
+│       │   └── [44B] .gitignore
+│       ├── [0B] exp
+│       │   ├── [312B] demo.sh
+│       │   ├── [365B] test.sh
+│       │   ├── [305B] train.sh
+│       │   └── [570B] trainval_h2o.sh
+│       ├── [0B] preprocess
+│       │   ├── [0B] EgoPAT3D
+│       │   │   ├── [3K] depth_estimation.py
+│       │   │   ├── [18K] get_3dhand_trajectory.py
+│       │   │   ├── [2K] pc2depth.py
+│       │   │   ├── [4K] read_mkv_pyk4a.py
+│       │   │   ├── [2K] README.md
+│       │   │   ├── [5K] split_videos.py
+│       │   │   ├── [7K] step1_split_videos_with_landmarks.py
+│       │   │   ├── [8K] step2_flow_warped_2dhand_trajectory.py
+│       │   │   ├── [5K] step3_fetch_depth_traj3d.py
+│       │   │   ├── [9K] step4_repair_invalid_depth.py
+│       │   │   ├── [11K] step5_compare_depth.py
+│       │   │   ├── [12K] step6_compute_odometry.py
+│       │   │   └── [11K] visualize_gt.py
+│       │   └── [0B] H2O
+│       │       ├── [2K] get_splits.py
+│       │       ├── [19K] preprocess.py
+│       │       └── [10K] visualize.py
+│       ├── [0B] src
+│       │   ├── [0B] models
+│       │   │   ├── [7K] EmbedFrame.py
+│       │   │   ├── [1K] EmbedTrajectory.py
+│       │   │   ├── [3K] Heads.py
+│       │   │   ├── [5K] ProTranV3.py
+│       │   │   ├── [4K] transformer_layers.py
+│       │   │   ├── [7K] TransformerSSM.py
+│       │   │   └── [3K] utils.py
+│       │   ├── [0B] __init__.py
+│       │   ├── [3K] config.py
+│       │   ├── [23K] EgoPAT3DLoader.py
+│       │   ├── [18K] H2OLoader.py
+│       │   ├── [6K] Losses.py
+│       │   ├── [4K] optimizers.py
+│       │   ├── [9K] runtime.py
+│       │   ├── [21K] utils.py
+│       │   ├── [5K] utils_h2o.py
+│       │   ├── [3K] utils_io.py
+│       │   └── [8K] utils_vis.py
+│       ├── [0B] third_party
+│       │   ├── [0B] hoi-forecast
+│       │   ├── [0B] NewCRFs
+│       │   ├── [0B] pyk4a
+│       │   └── [0B] RAFT
+│       ├── [0B] tools
+│       │   ├── [12K] demo.py
+│       │   ├── [14K] demo_paper.py
+│       │   ├── [10K] illustrate_task.py
+│       │   └── [7K] visualize_dataset.py
+│       ├── [2K] .gitignore
+│       ├── [433B] .gitmodules
+│       ├── [11K] LICENSE
+│       ├── [8K] README.md
+│       ├── [192B] requirements.txt
+│       ├── [4K] test.py
+│       ├── [3K] train.py
+│       └── [6K] trainval_h2o.py
+├── [0B] reports
+│   ├── [19K] all
+│   ├── [3M] annotation_inventory.csv
+│   ├── [3K] download_blockers.md
+│   ├── [294B] inspection_summary.json
+│   ├── [9M] phase1_manifest.json
+│   ├── [2K] phase1_summary.md
+│   ├── [1K] phase1b_cleanup_recommendations.md
+│   ├── [3K] phase1b_summary.md
+│   ├── [11K] phase1b_unreadable_videos.json
+│   ├── [5K] phase1b_verification.json
+│   ├── [546B] repo_commits.md
+│   ├── [52K] tree.txt
+│   └── [2M] video_inventory.csv
+├── [0B] scripts
+│   ├── [4K] download_sources.sh
+│   ├── [6K] inspect_data.py
+│   ├── [2K] make_manifest.py
+│   └── [1K] setup_env.sh
+├── [361B] .gitignore
+└── [1K] README_PHASE1.md

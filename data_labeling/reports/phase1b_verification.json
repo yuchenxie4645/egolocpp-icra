@@ -1,0 +1,149 @@
+{
+  "egopat3d_dt": {
+    "videos": 11429,
+    "trajectories": 11141,
+    "odometry": 11141,
+    "paired_video_traj_odom": 11141,
+    "videos_missing_trajectory": 288,
+    "videos_missing_odometry": 288,
+    "trajectories_without_video": 0,
+    "odometry_without_video": 0,
+    "missing_trajectory_samples": [
+      "1/bathroomCabinet_8/c17_s904_e916_sx699_sy413_ex765_ey318",
+      "1/bathroomCabinet_8/c24_s1280_e1292_sx623_sy392_ex551_ey289",
+      "10/nightstand_10/c49_s4938_e4958_sx455_sy358_ex779_ey375",
+      "10/nightstand_10/c69_s6693_e6703_sx522_sy428_ex492_ey379",
+      "10/nightstand_10/c71_s6772_e6828_sx538_sy437_ex211_ey248",
+      "10/nightstand_10/c8_s934_e947_sx539_sy423_ex489_ey246",
+      "10/nightstand_3/c52_s6032_e6048_sx779_sy376_ex463_ey443",
+      "10/nightstand_3/c59_s6456_e6474_sx735_sy433_ex464_ey371",
+      "10/nightstand_4/c24_s2955_e2965_sx750_sy329_ex567_ey253",
+      "10/nightstand_4/c3_s227_e236_sx517_sy411_ex512_ey290"
+    ],
+    "missing_odometry_samples": [
+      "1/bathroomCabinet_8/c17_s904_e916_sx699_sy413_ex765_ey318",
+      "1/bathroomCabinet_8/c24_s1280_e1292_sx623_sy392_ex551_ey289",
+      "10/nightstand_10/c49_s4938_e4958_sx455_sy358_ex779_ey375",
+      "10/nightstand_10/c69_s6693_e6703_sx522_sy428_ex492_ey379",
+      "10/nightstand_10/c71_s6772_e6828_sx538_sy437_ex211_ey248",
+      "10/nightstand_10/c8_s934_e947_sx539_sy423_ex489_ey246",
+      "10/nightstand_3/c52_s6032_e6048_sx779_sy376_ex463_ey443",
+      "10/nightstand_3/c59_s6456_e6474_sx735_sy433_ex464_ey371",
+      "10/nightstand_4/c24_s2955_e2965_sx750_sy329_ex567_ey253",
+      "10/nightstand_4/c3_s227_e236_sx517_sy411_ex512_ey290"
+    ],
+    "sample_video_info": [
+      {
+        "path": "data/EgoPAT3D/EgoPAT3D-postproc/video_clips_hand/1/bathroomCabinet_1/c100_s5241_e5270_sx563_sy454_ex722_ey355.mp4",
+        "readable": true,
+        "frames": 30,
+        "fps": 30.0,
+        "width": 960,
+        "height": 540
+      },
+      {
+        "path": "data/EgoPAT3D/EgoPAT3D-postproc/video_clips_hand/1/bathroomCabinet_1/c101_s5287_e5312_sx588_sy428_ex438_ey310.mp4",
+        "readable": true,
+        "frames": 26,
+        "fps": 30.0,
+        "width": 960,
+        "height": 540
+      },
+      {
+        "path": "data/EgoPAT3D/EgoPAT3D-postproc/video_clips_hand/1/bathroomCabinet_1/c102_s5333_e5371_sx676_sy360_ex501_ey333.mp4",
+        "readable": true,
+        "frames": 39,
+        "fps": 30.0,
+        "width": 960,
+        "height": 540
+      },
+      {
+        "path": "data/EgoPAT3D/EgoPAT3D-postproc/video_clips_hand/1/bathroomCabinet_1/c103_s5388_e5420_sx573_sy438_ex596_ey386.mp4",
+        "readable": true,
+        "frames": 33,
+        "fps": 30.0,
+        "width": 960,
+        "height": 540
+      },
+      {
+        "path": "data/EgoPAT3D/EgoPAT3D-postproc/video_clips_hand/1/bathroomCabinet_1/c104_s5436_e5457_sx671_sy413_ex576_ey350.mp4",
+        "readable": true,
+        "frames": 22,
+        "fps": 30.0,
+        "width": 960,
+        "height": 540
+      }
+    ],
+    "sample_trajectory_info": [
+      {
+        "path": "data/EgoPAT3D/EgoPAT3D-postproc/trajectory_repair/1/bathroomCabinet_1/c100_s5241_e5270_sx563_sy454_ex722_ey355.pkl",
+        "readable": true,
+        "type": "dict",
+        "len": 3
+      },
+      {
+        "path": "data/EgoPAT3D/EgoPAT3D-postproc/trajectory_repair/1/bathroomCabinet_1/c101_s5287_e5312_sx588_sy428_ex438_ey310.pkl",
+        "readable": true,
+        "type": "dict",
+        "len": 3
+      },
+      {
+        "path": "data/EgoPAT3D/EgoPAT3D-postproc/trajectory_repair/1/bathroomCabinet_1/c102_s5333_e5371_sx676_sy360_ex501_ey333.pkl",
+        "readable": true,
+        "type": "dict",
+        "len": 3
+      },
+      {
+        "path": "data/EgoPAT3D/EgoPAT3D-postproc/trajectory_repair/1/bathroomCabinet_1/c103_s5388_e5420_sx573_sy438_ex596_ey386.pkl",
+        "readable": true,
+        "type": "dict",
+        "len": 3
+      },
+      {
+        "path": "data/EgoPAT3D/EgoPAT3D-postproc/trajectory_repair/1/bathroomCabinet_1/c104_s5436_e5457_sx671_sy413_ex576_ey350.pkl",
+        "readable": true,
+        "type": "dict",
+        "len": 3
+      }
+    ],
+    "sample_odometry_info": [
+      {
+        "path": "data/EgoPAT3D/EgoPAT3D-postproc/odometry/1/bathroomCabinet_1/c100_s5241_e5270_sx563_sy454_ex722_ey355.npy",
+        "readable": true,
+        "shape": "(30, 4, 4)",
+        "dtype": "float64"
+      },
+      {
+        "path": "data/EgoPAT3D/EgoPAT3D-postproc/odometry/1/bathroomCabinet_1/c101_s5287_e5312_sx588_sy428_ex438_ey310.npy",
+        "readable": true,
+        "shape": "(26, 4, 4)",
+        "dtype": "float64"
+      },
+      {
+        "path": "data/EgoPAT3D/EgoPAT3D-postproc/odometry/1/bathroomCabinet_1/c102_s5333_e5371_sx676_sy360_ex501_ey333.npy",
+        "readable": true,
+        "shape": "(39, 4, 4)",
+        "dtype": "float64"
+      },
+      {
+        "path": "data/EgoPAT3D/EgoPAT3D-postproc/odometry/1/bathroomCabinet_1/c103_s5388_e5420_sx573_sy438_ex596_ey386.npy",
+        "readable": true,
+        "shape": "(33, 4, 4)",
+        "dtype": "float64"
+      },
+      {
+        "path": "data/EgoPAT3D/EgoPAT3D-postproc/odometry/1/bathroomCabinet_1/c104_s5436_e5457_sx671_sy413_ex576_ey350.npy",
+        "readable": true,
+        "shape": "(22, 4, 4)",
+        "dtype": "float64"
+      }
+    ]
+  },
+  "desktil": {
+    "videos": 130,
+    "annotation_files_all": 1,
+    "annotation_files": [
+      "data/DeskTIL/annotations/label.xlsx"
+    ]
+  }
+}
