@@ -9,9 +9,8 @@ from tests.test_manifest_convert import build_fixture_manifest
 
 def complete_record(record, task, mode, trial, config, config_hash):
     episode = record["episode"]
-    seed = runner.trial3.derive_seed(episode, task, trial)
+    seed = runner.trial2_final.derive_seed(episode, task, trial)
     prediction = 2 if task == "contact" else 9
-    anchor = "start" if task == "contact" else "end"
     if mode == "speed":
         coverage = {"speed_n": 4, "pinch_n": 0, "neutral_n": 5}
         reads = {"speed": True, "pinch": False}
@@ -41,6 +40,7 @@ def complete_record(record, task, mode, trial, config, config_hash):
         "task": task,
         "selected_frame": prediction,
         "saved_grid_path": "/tmp/grid.png",
+        "midpoint_restriction": False,
     }
     traces = [
         {
@@ -85,11 +85,13 @@ def complete_record(record, task, mode, trial, config, config_hash):
             "source_stage": f"{task}_initial",
         },
         "anchor": {
-            "kind": anchor,
-            "midpoint": 6,
-            "outside_preferred_region": [],
-            "relaxed": False,
+            "kind": "none",
+            "task_anchor": "start" if task == "contact" else "end",
+            "midpoint_restriction": False,
         },
+        "candidate_grid_recall": True,
+        "candidate_grid_distance_to_ground_truth": 0,
+        "primary_output": "closed_loop",
         "request_traces": traces,
         "config_hash": config_hash,
         "config_snapshot": config,

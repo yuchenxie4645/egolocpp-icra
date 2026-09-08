@@ -10,7 +10,7 @@ import time
 import traceback
 from pathlib import Path
 
-# Must precede trial3 -> torch import in this process.
+# Must precede Trial-2-final -> torch import in this process.
 os.environ.setdefault("CUDA_VISIBLE_DEVICES", "1")
 os.environ.setdefault("HF_HUB_OFFLINE", "1")
 os.environ.setdefault("TRANSFORMERS_OFFLINE", "1")
@@ -21,7 +21,7 @@ for _path in (str(EGOLOC_ROOT), str(HERE)):
     if _path not in sys.path:
         sys.path.insert(0, _path)
 
-import trial3  # noqa: E402
+import trial_2_final as trial2_final  # noqa: E402
 from manifest import load_manifest  # noqa: E402
 from results_store import (  # noqa: E402
     ResultsStore,
@@ -138,9 +138,15 @@ def _sha256_file(path):
 def build_evaluation_config(manifest, backend_name="transformers-nf4"):
     """Return the exact production protocol snapshot hashed into every row."""
     code_paths = {
-        "trial3.py": EGOLOC_ROOT / "trial3.py",
+        "trial_2_final.py": EGOLOC_ROOT / "trial_2_final.py",
         "backend.py": HERE / "backend.py",
+        "manifest.py": HERE / "manifest.py",
+        "convert.py": HERE / "convert.py",
+        "signals.py": HERE / "signals.py",
         "runner.py": HERE / "runner.py",
+        "audit.py": HERE / "audit.py",
+        "stats.py": HERE / "stats.py",
+        "config.json": HERE / "config.json",
     }
     return {
         "protocol_version": manifest["protocol_version"],
@@ -182,8 +188,19 @@ def build_evaluation_config(manifest, backend_name="transformers-nf4"):
         "grid": {
             "size": 3,
             "frames": 9,
+            "topology": "consecutive_average_centered",
+            "midpoint_restriction": False,
             "max_feedbacks": 1,
             "action": ACTION,
+        },
+        "prompt": {
+            "semantics": "exact_earliest_stable_grasp_or_visible_release",
+            "negative_option": -1,
+        },
+        "primary_output": "closed_loop_after_one_feedback_round",
+        "missing_hand": {
+            "speed": "gap_normalized_displacement_per_elapsed_frame",
+            "pinch": "local_minima_per_contiguous_detection_segment",
         },
         "trials": [0, 1, 2],
         "paired_seed_fields": ["episode", "task", "trial"],
@@ -272,6 +289,7 @@ def _validate_inputs(records, video_dir, signal_dir, modes):
     from signals import (
         signal_paths,
         validate_pinch_cache,
+        validate_signal_metadata,
         validate_speed_cache,
     )
 
@@ -285,13 +303,14 @@ def _validate_inputs(records, video_dir, signal_dir, modes):
         video_path = Path(video_dir) / f"{record['episode']}.mp4"
         validate_video(video_path, record)
         paths = signal_paths(signal_dir, record["episode"])
+        validate_signal_metadata(paths["metadata"], int(record["num_frames"]))
         if need_speed:
             validate_speed_cache(paths["speed"], int(record["num_frames"]))
         if need_pinch:
             validate_pinch_cache(paths["pinch"], int(record["num_frames"]))
 
 
-def _cue_and_fallback(initial_trace, mode, total_frames, anchor):
+def _cue_and_fallback(initial_trace, mode, total_frames, task_anchor):
     used = [int(value) for value in initial_trace.get("used_frame_indices", [])]
     sources = initial_trace.get("candidate_sources", {})
     speed = {int(value) for value in sources.get("speed", [])}
@@ -304,11 +323,9 @@ def _cue_and_fallback(initial_trace, mode, total_frames, anchor):
     neutral_frames = [
         frame for frame in used if frame not in speed and frame not in pinch
     ]
-    midpoint = int(total_frames) // 2
-    if anchor == "start":
-        outside = [frame for frame in used if frame >= midpoint]
-    else:
-        outside = [frame for frame in used if frame < midpoint]
+    cue_fallback = [
+        int(value) for value in initial_trace.get("fallback_frames", [])
+    ]
     return {
         "cue_coverage": {
             "speed_n": len(speed_frames),
@@ -320,17 +337,21 @@ def _cue_and_fallback(initial_trace, mode, total_frames, anchor):
             "neutral_frames": neutral_frames,
         },
         "fallback": {
-            "used": bool(neutral_frames),
-            "count": len(neutral_frames),
-            "frames": neutral_frames,
+            "used": bool(cue_fallback),
+            "count": len(cue_fallback),
+            "frames": cue_fallback,
             "kind": "chronological" if mode == "pinch" else "speed_ranked",
             "source_stage": initial_trace.get("stage"),
         },
+        "temporal_context": {
+            "count": len(neutral_frames),
+            "frames": neutral_frames,
+            "kind": "consecutive_around_cue_average",
+        },
         "anchor": {
-            "kind": anchor,
-            "midpoint": midpoint,
-            "outside_preferred_region": outside,
-            "relaxed": bool(outside),
+            "kind": "none",
+            "task_anchor": task_anchor,
+            "midpoint_restriction": False,
         },
     }
 
@@ -355,7 +376,7 @@ def _run_trial(
     total_frames = int(record["num_frames"])
     video_path = str(Path(video_dir) / f"{episode}.mp4")
     signal_root = str(Path(signal_dir) / episode)
-    seed = trial3.derive_seed(episode, task, trial)
+    seed = trial2_final.derive_seed(episode, task, trial)
     anchor = "start" if task == "contact" else "end"
     traces = []
     started = time.monotonic()
@@ -382,7 +403,7 @@ def _run_trial(
         "timestamp_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
     }
     try:
-        initial = trial3.process_task(
+        initial = trial2_final.process_task(
             {},
             video_path,
             ACTION,
@@ -407,13 +428,24 @@ def _run_trial(
             {},
         )
         base.update(_cue_and_fallback(initial_trace, mode, total_frames, anchor))
+        initial_frames = [
+            int(value)
+            for value in initial_trace.get("used_frame_indices", [])
+        ]
+        ground_truth = int(base["ground_truth_local"])
+        base["candidate_grid_recall"] = ground_truth in initial_frames
+        base["candidate_grid_distance_to_ground_truth"] = (
+            min(abs(frame - ground_truth) for frame in initial_frames)
+            if initial_frames
+            else None
+        )
         if initial is None:
             raise PredictionUnavailable("initial localization returned no frame")
 
         feedback = (
-            trial3.feedback_contact
+            trial2_final.feedback_contact
             if task == "contact"
-            else trial3.feedback_separation
+            else trial2_final.feedback_separation
         )
         frame_kw = (
             {"frame_start": initial}
@@ -441,6 +473,7 @@ def _run_trial(
             raise PredictionUnavailable(f"invalid final prediction: {final!r}")
         base.update(
             status="success",
+            primary_output="closed_loop",
             initial_prediction_frame=int(initial),
             prediction_frame=int(final),
             raw_response=_trace_raw_response(traces),
@@ -459,6 +492,20 @@ def _run_trial(
             )
             base.update(
                 _cue_and_fallback(initial_trace, mode, total_frames, anchor)
+            )
+        if "candidate_grid_recall" not in base:
+            initial_frames = [
+                int(value)
+                for value in initial_trace.get("used_frame_indices", [])
+            ]
+            ground_truth = int(base["ground_truth_local"])
+            base["candidate_grid_recall"] = (
+                ground_truth in initial_frames if initial_frames else False
+            )
+            base["candidate_grid_distance_to_ground_truth"] = (
+                min(abs(frame - ground_truth) for frame in initial_frames)
+                if initial_frames
+                else None
             )
         base.update(
             status="terminal_failure",

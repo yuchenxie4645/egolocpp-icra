@@ -72,6 +72,27 @@ def _validate_config(record, errors):
     }
     if quant != expected_quant:
         _error(errors, key, f"NF4 config differs: {quant!r}")
+    grid = config.get("grid", {})
+    if (
+        grid.get("topology") != "consecutive_average_centered"
+        or grid.get("midpoint_restriction") is not False
+    ):
+        _error(errors, key, "grid is not unrestricted consecutive Trial 2")
+    prompt = config.get("prompt", {})
+    if (
+        prompt.get("semantics")
+        != "exact_earliest_stable_grasp_or_visible_release"
+        or prompt.get("negative_option") != -1
+    ):
+        _error(errors, key, "common exact prompt/-1 config differs")
+    if config.get("primary_output") != "closed_loop_after_one_feedback_round":
+        _error(errors, key, "primary output is not closed-loop")
+    missing_hand = config.get("missing_hand", {})
+    if missing_hand != {
+        "speed": "gap_normalized_displacement_per_elapsed_frame",
+        "pinch": "local_minima_per_contiguous_detection_segment",
+    }:
+        _error(errors, key, "missing-hand correction config differs")
     adapters = config.get("adapters", {})
     for task in TASKS:
         adapter = adapters.get(task, {})
@@ -127,6 +148,12 @@ def _validate_trace(record, errors):
             _error(errors, key, f"trace {index} unexpected one-frame request")
         if len(used) == 9 and len(set(used)) != 9:
             _error(errors, key, f"trace {index} grid frames are not unique")
+        if len(used) == 9 and any(
+            right - left != 1 for left, right in zip(used, used[1:])
+        ):
+            _error(errors, key, f"trace {index} grid is not consecutive")
+        if trace.get("midpoint_restriction") is not False:
+            _error(errors, key, f"trace {index} applied midpoint restriction")
         latency = trace.get("latency_s")
         if not isinstance(latency, (int, float)) or latency < 0:
             _error(errors, key, f"trace {index} invalid latency")
@@ -176,8 +203,12 @@ def _validate_mode_isolation(record, errors):
         if fallback.get("count") != len(fallback.get("frames", [])):
             _error(errors, key, "fallback count/frame list mismatch")
     anchor = record.get("anchor")
-    if not isinstance(anchor, dict) or anchor.get("kind") not in ("start", "end"):
-        _error(errors, key, "missing anchor provenance")
+    if (
+        not isinstance(anchor, dict)
+        or anchor.get("kind") != "none"
+        or anchor.get("midpoint_restriction") is not False
+    ):
+        _error(errors, key, "midpoint restriction was not removed")
 
 
 def audit_results(
@@ -248,6 +279,10 @@ def audit_results(
                 or prediction >= int(record.get("num_frames", 0))
             ):
                 _error(errors, key, "successful prediction is out of range")
+        if not isinstance(record.get("candidate_grid_recall"), bool):
+            _error(errors, key, "missing candidate-grid recall")
+        if record.get("primary_output") not in (None, "closed_loop"):
+            _error(errors, key, "result is not marked closed-loop")
         elif record.get("prediction_frame") is not None:
             _error(errors, key, "terminal failure contains a prediction")
         strata[(task, mode, trial)] += 1

@@ -7,6 +7,13 @@ imputation: contact for `000098`, and separation for `000098` and `000238`.
 The complete run therefore has 651 available events and 5,859 trials
 (651 × 3 modes × N=3).
 
+Localization uses `/home/EgoLoc/trial_2_final.py`; the original `trial2.py`
+and `trial3.py` are not modified or imported. Every VLM grid contains nine
+unique consecutive frames centered on the mean cue location. There is no
+first-half/second-half restriction. The common prompt asks for the exact
+earliest stable grasp or visible release and retains the `-1` option. Primary
+predictions are closed-loop after one visual-feedback round.
+
 Inference is Transformers-only: one warm `Qwen/Qwen3.5-9B` NF4 model, with the
 contact and separation PEFT adapters attached once and switched task-major.
 Nothing here requires vLLM, an OpenAI client, or port 8000.
@@ -51,7 +58,7 @@ Tests and syntax checks:
 ```bash
 conda run -n egolocxyc python -m pytest tests -q
 conda run -n egolocxyc python -m py_compile \
-  /home/EgoLoc/trial3.py ./*.py
+  /home/EgoLoc/trial_2_final.py ./*.py
 ```
 
 For a full unattended run from the host, invoke `./launch_tmux.sh`. It creates

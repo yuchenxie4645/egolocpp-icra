@@ -7,6 +7,7 @@ import json
 import math
 import os
 import shutil
+import tempfile
 import time
 import traceback
 from pathlib import Path
@@ -16,6 +17,7 @@ DEFAULT_MANIFEST = HERE / "data" / "manifest.json"
 DEFAULT_VIDEO_DIR = HERE / "data" / "videos"
 DEFAULT_SIGNAL_DIR = HERE / "data" / "signals"
 DEFAULT_STATUS = HERE / "data" / "signals_status.jsonl"
+SIGNAL_SCHEMA_VERSION = "trial-2-final-gap-and-segment-v1"
 
 
 class SignalError(RuntimeError):
@@ -30,6 +32,7 @@ def signal_paths(signal_root, episode):
         "metrics": metrics,
         "speed": metrics / f"{episode}_hand_speed.json",
         "pinch": metrics / f"{episode}_pinch_distance.json",
+        "metadata": metrics / f"{episode}_signal_metadata.json",
         "debug": episode_root / "debug",
         "plots": episode_root / "plots",
     }
@@ -130,6 +133,10 @@ def validate_pinch_cache(path, num_frames):
     selection = data.get("candidate_selection")
     if not isinstance(selection, dict):
         raise SignalError(f"{path}: missing candidate_selection")
+    if selection.get("contiguous_detection_segments") is not True:
+        raise SignalError(
+            f"{path}: pinch minima were not computed by contiguous segment"
+        )
     if selection.get("neighborhood") != [-1, 0, 1]:
         raise SignalError(f"{path}: candidate neighborhood must be [-1,0,1]")
     minima = selection.get("relative_minimum_frames", [])
@@ -168,11 +175,33 @@ def validate_pinch_cache(path, num_frames):
     }
 
 
+def validate_signal_metadata(path, num_frames):
+    path = Path(path)
+    try:
+        with open(path, encoding="utf-8") as handle:
+            data = json.load(handle)
+    except (OSError, json.JSONDecodeError) as exc:
+        raise SignalError(f"invalid signal metadata {path}: {exc}") from exc
+    expected = {
+        "schema_version": SIGNAL_SCHEMA_VERSION,
+        "total_frames": int(num_frames),
+        "speed": "euclidean_hand_center_displacement_per_elapsed_frame",
+        "pinch": "relative_minima_within_contiguous_detection_segments",
+    }
+    for key, value in expected.items():
+        if data.get(key) != value:
+            raise SignalError(
+                f"{path}: {key}={data.get(key)!r}, expected {value!r}"
+            )
+    return {"valid": True, "path": str(path), **expected}
+
+
 def validate_episode_cache(signal_root, episode, num_frames):
     paths = signal_paths(signal_root, episode)
     return {
         "speed": validate_speed_cache(paths["speed"], num_frames),
         "pinch": validate_pinch_cache(paths["pinch"], num_frames),
+        "metadata": validate_signal_metadata(paths["metadata"], num_frames),
     }
 
 
@@ -205,6 +234,236 @@ def append_status(path, record):
             os.close(fd)
 
 
+def _atomic_json(path, value):
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fd, temp_name = tempfile.mkstemp(
+        prefix=f".{path.name}.", suffix=".tmp", dir=str(path.parent)
+    )
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as handle:
+            json.dump(value, handle, indent=2, allow_nan=False)
+            handle.write("\n")
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temp_name, path)
+    except Exception:
+        try:
+            os.unlink(temp_name)
+        except FileNotFoundError:
+            pass
+        raise
+
+
+def extract_combined_signals(
+    video_path,
+    output_root,
+    detector,
+    vitpose,
+    write_speed=True,
+    write_pinch=True,
+    debug=False,
+):
+    """Compute speed and pinch from one shared detector/ViTPose pass.
+
+    Trial 2's hand-center and pinch helpers run the
+    same detector and pose model with the same thresholds. The returned
+    21-point hands retain all coordinates/confidences needed to reproduce the
+    speed center selection exactly, so sharing this inference avoids a second
+    full GPU pass without changing either signal definition.
+    """
+    import cv2
+    import numpy as np
+    import sys
+
+    egoloc_root = str(HERE.parent)
+    if egoloc_root not in sys.path:
+        sys.path.insert(0, egoloc_root)
+    import trial_2_final as trial2_final
+
+    video_path = Path(video_path)
+    video_name = video_path.stem
+    output_root = Path(output_root)
+    paths = signal_paths(output_root.parent, video_name)
+    # ``output_root`` is normally <signal_root>/<episode>. Keep custom roots
+    # usable for equivalence tests.
+    if output_root != paths["root"]:
+        paths = {
+            "root": output_root,
+            "metrics": output_root / "metrics",
+            "speed": output_root / "metrics" / f"{video_name}_hand_speed.json",
+            "pinch": output_root
+            / "metrics"
+            / f"{video_name}_pinch_distance.json",
+            "metadata": output_root
+            / "metrics"
+            / f"{video_name}_signal_metadata.json",
+            "debug": output_root / "debug",
+            "plots": output_root / "plots",
+        }
+    paths["metrics"].mkdir(parents=True, exist_ok=True)
+    debug_video_dir = (
+        paths["debug"] / "pinch_distance_detected_frames" / video_name
+    )
+    if debug:
+        debug_video_dir.mkdir(parents=True, exist_ok=True)
+
+    cap = cv2.VideoCapture(str(video_path))
+    if not cap.isOpened():
+        raise SignalError(f"cannot open converted video: {video_path}")
+    total_frames = int(round(cap.get(cv2.CAP_PROP_FRAME_COUNT)))
+    centers = {}
+    pinch_frames = {}
+    try:
+        for idx in range(total_frames):
+            cap.set(cv2.CAP_PROP_POS_FRAMES, idx)
+            ok, frame = cap.read()
+            if not ok:
+                pinch_frames[str(idx)] = {
+                    "detected": False,
+                    "detection_status": "frame_read_failed",
+                    "pinch_distance_px": None,
+                    "is_relative_minimum": False,
+                }
+                continue
+
+            hand_keypoints, _ = trial2_final._detect_hands_for_pinch(
+                frame, detector, vitpose
+            )
+            if not hand_keypoints:
+                pinch_frames[str(idx)] = {
+                    "detected": False,
+                    "detection_status": "no_hand_detected",
+                    "pinch_distance_px": None,
+                    "is_relative_minimum": False,
+                }
+                continue
+
+            center_candidates = []
+            per_hand_distances = []
+            per_hand_xy = []
+            for hand_kpts in hand_keypoints:
+                good = hand_kpts[:, 2] > 0.5
+                if int(good.sum()) > 3:
+                    xy = hand_kpts[good, :2]
+                    center_candidates.append(
+                        (
+                            float(hand_kpts[good, 2].mean()),
+                            (
+                                float(xy[:, 0].mean()),
+                                float(xy[:, 1].mean()),
+                            ),
+                        )
+                    )
+                distance = float(
+                    np.linalg.norm(hand_kpts[4, :2] - hand_kpts[8, :2])
+                )
+                per_hand_distances.append(distance)
+                per_hand_xy.append(hand_kpts[:, :2])
+
+            if center_candidates:
+                center_candidates.sort(reverse=True, key=lambda item: item[0])
+                centers[idx] = center_candidates[0][1]
+
+            if not per_hand_distances:
+                pinch_frames[str(idx)] = {
+                    "detected": False,
+                    "detection_status": "no_valid_hand_keypoints",
+                    "pinch_distance_px": None,
+                    "is_relative_minimum": False,
+                }
+                continue
+            best = int(np.argmin(per_hand_distances))
+            pinch_frames[str(idx)] = {
+                "detected": True,
+                "detection_status": "detected",
+                "pinch_distance_px": float(per_hand_distances[best]),
+                "is_relative_minimum": False,
+                "detected_hand_count": int(len(hand_keypoints)),
+                "selected_hand_index": best,
+            }
+            if debug:
+                annotated = trial2_final._draw_pinch_debug(
+                    frame, per_hand_xy[best], per_hand_distances[best]
+                )
+                cv2.imwrite(
+                    str(
+                        debug_video_dir
+                        / f"{video_name}_pinch_detected_f{idx:04d}.png"
+                    ),
+                    annotated,
+                )
+            if (idx + 1) % 50 == 0 or idx + 1 == total_frames:
+                print(
+                    f"{video_name}: shared speed+pinch processed "
+                    f"{idx + 1}/{total_frames}",
+                    flush=True,
+                )
+    finally:
+        cap.release()
+
+    speed = trial2_final.compute_gap_normalized_speed(centers, total_frames)
+
+    detected_items = [
+        (int(frame_idx), record["pinch_distance_px"])
+        for frame_idx, record in pinch_frames.items()
+        if record["detected"] and record["pinch_distance_px"] is not None
+    ]
+    for record in pinch_frames.values():
+        record.setdefault("is_relative_minimum", False)
+        record.setdefault("is_relative_minimum_neighbor", False)
+    minima = trial2_final._relative_minimum_frame_indices(detected_items)
+    neighborhood = trial2_final._expand_minima_with_neighbors(
+        minima, total_frames
+    )
+    for frame_idx in minima:
+        pinch_frames[str(frame_idx)]["is_relative_minimum"] = True
+    minima_set = set(minima)
+    for frame_idx in neighborhood:
+        pinch_frames[str(frame_idx)][
+            "is_relative_minimum_neighbor"
+        ] = frame_idx not in minima_set
+    pinch = {
+        "video_name": video_name,
+        "total_frames": total_frames,
+        "pinch_joint_pair": {"thumb_tip": 4, "index_tip": 8},
+        "candidate_selection": {
+            "strategy": "relative_minimum_pinch_distance_with_neighbors",
+            "contiguous_detection_segments": True,
+            "neighborhood": [-1, 0, 1],
+            "ignored_statuses": [
+                "frame_read_failed",
+                "no_hand_detected",
+                "no_valid_hand_keypoints",
+            ],
+            "relative_minimum_frames": minima,
+            "relative_minimum_neighborhood_frames": neighborhood,
+        },
+        "frames": pinch_frames,
+    }
+    if write_speed:
+        _atomic_json(paths["speed"], speed)
+    if write_pinch:
+        _atomic_json(paths["pinch"], pinch)
+    metadata = {
+        "schema_version": SIGNAL_SCHEMA_VERSION,
+        "video_name": video_name,
+        "total_frames": total_frames,
+        "speed": "euclidean_hand_center_displacement_per_elapsed_frame",
+        "pinch": "relative_minima_within_contiguous_detection_segments",
+        "shared_detector_pose_pass": True,
+    }
+    _atomic_json(paths["metadata"], metadata)
+    return {
+        "speed_path": str(paths["speed"]),
+        "pinch_path": str(paths["pinch"]),
+        "total_frames": total_frames,
+        "detected_centers": len(centers),
+        "detected_pinch_frames": len(detected_items),
+        "relative_minima": len(minima),
+    }
+
+
 def _select_records(manifest, episodes=None, limit=None):
     records = list(manifest["episodes"])
     if episodes:
@@ -231,11 +490,22 @@ def _needs(record, signal_root, force=False):
     n = int(record["num_frames"])
     speed_ok, speed_meta = _is_valid(validate_speed_cache, paths["speed"], n)
     pinch_ok, pinch_meta = _is_valid(validate_pinch_cache, paths["pinch"], n)
+    metadata_ok, metadata_meta = _is_valid(
+        validate_signal_metadata, paths["metadata"], n
+    )
+    if not metadata_ok:
+        speed_ok = False
+        pinch_ok = False
     return {
         "paths": paths,
         "speed": force or not speed_ok,
         "pinch": force or not pinch_ok,
-        "existing": {"speed": speed_meta, "pinch": pinch_meta},
+        "metadata": force or not metadata_ok,
+        "existing": {
+            "speed": speed_meta,
+            "pinch": pinch_meta,
+            "metadata": metadata_meta,
+        },
     }
 
 
@@ -287,14 +557,14 @@ def precompute_signals(
     if egoloc_root not in sys.path:
         sys.path.insert(0, egoloc_root)
     import torch
-    import trial3
+    import trial_2_final as trial2_final
 
-    trial3.setup_hamer_cache()
+    trial2_final.setup_hamer_cache()
     if str(device).startswith("cuda") and not torch.cuda.is_available():
         raise SignalError(f"CUDA device requested but unavailable: {device}")
     torch_device = torch.device(device)
-    detector = trial3.build_detector()
-    vitpose = trial3.build_vitpose(torch_device)
+    detector = trial2_final.build_detector()
+    vitpose = trial2_final.build_vitpose(torch_device)
 
     for record, initial_state, video_path in pending:
         started = time.monotonic()
@@ -314,22 +584,19 @@ def precompute_signals(
             paths = state["paths"]
             paths["root"].mkdir(parents=True, exist_ok=True)
             try:
+                extract_combined_signals(
+                    str(video_path),
+                    str(paths["root"]),
+                    detector,
+                    vitpose,
+                    write_speed=state["speed"],
+                    write_pinch=state["pinch"],
+                    debug=debug,
+                )
+                result["extraction"] = "single_pass_shared_detection"
                 if state["speed"]:
-                    trial3.extract_2d_speed_and_visualize(
-                        str(video_path),
-                        str(paths["root"]),
-                        detector,
-                        vitpose,
-                    )
                     result["computed"].append("speed")
                 if state["pinch"]:
-                    trial3.extract_pinch_distance_and_visualize(
-                        str(video_path),
-                        str(paths["root"]),
-                        detector,
-                        vitpose,
-                        str(paths["debug"]),
-                    )
                     result["computed"].append("pinch")
                 result["signals"] = validate_episode_cache(
                     signal_root, episode, int(record["num_frames"])

@@ -27,6 +27,7 @@ def write_valid_caches(root, episode="000000", frames=12):
         "total_frames": frames,
         "candidate_selection": {
             "strategy": "relative_minimum_pinch_distance_with_neighbors",
+            "contiguous_detection_segments": True,
             "neighborhood": [-1, 0, 1],
             "relative_minimum_frames": minima,
             "relative_minimum_neighborhood_frames": neighborhood,
@@ -34,6 +35,20 @@ def write_valid_caches(root, episode="000000", frames=12):
         "frames": pinch_frames,
     }
     paths["pinch"].write_text(json.dumps(pinch))
+    paths["metadata"].write_text(
+        json.dumps(
+            {
+                "schema_version": signals.SIGNAL_SCHEMA_VERSION,
+                "total_frames": frames,
+                "speed": (
+                    "euclidean_hand_center_displacement_per_elapsed_frame"
+                ),
+                "pinch": (
+                    "relative_minima_within_contiguous_detection_segments"
+                ),
+            }
+        )
+    )
     return paths
 
 
@@ -42,12 +57,14 @@ def test_valid_speed_and_pinch_cache_schema(tmp_path):
 
     speed = signals.validate_speed_cache(paths["speed"], 12)
     pinch = signals.validate_pinch_cache(paths["pinch"], 12)
+    metadata = signals.validate_signal_metadata(paths["metadata"], 12)
 
     assert speed["frames"] == 12
     assert speed["nonzero_frames"] == 11
     assert pinch["frames"] == 12
     assert pinch["minima"] == 1
     assert pinch["candidate_frames"] == 3
+    assert metadata["schema_version"] == signals.SIGNAL_SCHEMA_VERSION
 
 
 def test_speed_cache_requires_exact_frame_keys(tmp_path):

@@ -48,7 +48,9 @@
     ]
   },
   "grid_size": 3,
+  "grid_topology": "consecutive_average_centered",
   "max_feedbacks": 1,
+  "midpoint_restriction": false,
   "mode_semantics": {
     "pinch": {
       "candidates": "relative pinch-distance minima plus/minus one frame",
@@ -85,7 +87,14 @@
     }
   },
   "model": "Qwen/Qwen3.5-9B",
-  "protocol_version": "occlubench-egoloc-sampling-ablation-v1",
+  "missing_hand": {
+    "pinch": "local minima within contiguous detection segments",
+    "speed": "Euclidean displacement divided by elapsed frame gap"
+  },
+  "negative_option": -1,
+  "primary_output": "closed_loop_after_one_feedback_round",
+  "prompt_semantics": "exact earliest stable grasp / exact earliest visible release",
+  "protocol_version": "occlubench-egoloc-trial2-final-ablation-v2",
   "seed_fields": [
     "episode",
     "task",

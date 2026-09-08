@@ -15,7 +15,7 @@ DEFAULT_DATASET_ROOT = Path("/home/data_labeling/data/OccluBench")
 DEFAULT_LABEL_PATH = DEFAULT_DATASET_ROOT / "label.xlsx"
 DEFAULT_SEGMENTS_PATH = DEFAULT_DATASET_ROOT / "segments.csv"
 DEFAULT_OUTPUT = HERE / "data" / "manifest.json"
-PROTOCOL_VERSION = "occlubench-egoloc-sampling-ablation-v1"
+PROTOCOL_VERSION = "occlubench-egoloc-trial2-final-ablation-v2"
 EXPECTED_COLUMNS = [
     "episode",
     "start_frame",
@@ -446,7 +446,16 @@ def build_manifest(
             "trials": [0, 1, 2],
             "grid_size": 3,
             "grid_frames": 9,
+            "grid_topology": "consecutive_average_centered",
+            "midpoint_restriction": False,
             "max_feedbacks": 1,
+            "primary_output": "closed_loop",
+            "prompt_semantics": (
+                "exact earliest stable grasp / exact earliest visible release"
+            ),
+            "negative_option": -1,
+            "gap_normalized_speed": True,
+            "contiguous_segment_pinch_minima": True,
             "action": "Grasping the object",
             "paired_seed_fields": ["episode", "task", "trial"],
         },

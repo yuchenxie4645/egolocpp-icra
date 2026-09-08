@@ -1,7 +1,7 @@
-"""Shared fixtures for the trial3 refactor tests.
+"""Shared fixtures for the Trial-2-final protocol tests.
 
 Everything here runs on CPU only: synthetic MJPG videos, canned signal
-JSONs, and a recording stub that replaces trial3.vlm_request so no VLM
+JSONs, and a recording stub that replaces Trial-2-final VLM calls so no VLM
 server or model is ever contacted.
 """
 
@@ -21,7 +21,7 @@ for _path in (EGOLOC_DIR, ABLATION_DIR):
     if _path not in sys.path:
         sys.path.insert(0, _path)
 
-import trial3  # noqa: E402
+import trial_2_final as trial2_final  # noqa: E402
 
 # Shared golden fixture: 40 frames; a sparse hand-speed signal where only
 # frames 0..9 have non-zero speeds.
@@ -108,6 +108,7 @@ class Episode:
                 "pinch_joint_pair": {"thumb_tip": 4, "index_tip": 8},
                 "candidate_selection": {
                     "strategy": "relative_minimum_pinch_distance_with_neighbors",
+                    "contiguous_detection_segments": True,
                     "neighborhood": [-1, 0, 1],
                     "relative_minimum_frames": sorted(minima),
                     "relative_minimum_neighborhood_frames": sorted(neighborhood),
@@ -120,7 +121,7 @@ class Episode:
 
 
 class StubVLM:
-    """Recording drop-in replacement for trial3.vlm_request."""
+    """Recording drop-in replacement for Trial-2-final ``vlm_request``."""
 
     def __init__(self, content='{"points": [1]} canned analysis'):
         self.content = content
@@ -136,7 +137,12 @@ class StubVLM:
             trace_out["task"] = task
             trace_out["flag"] = flag
         if flag is None:
-            return trial3._parse_vlm_point(self.content), self.content
+            response = trial2_final.extract_json_part(self.content)
+            point = -1
+            if response is not None:
+                points = json.loads(response).get("points", [])
+                point = points[0] if points else -1
+            return point, self.content
         return self.content
 
 
@@ -148,7 +154,7 @@ def episode(tmp_path):
 
 @pytest.fixture
 def stub_vlm(monkeypatch):
-    """Monkeypatch trial3.vlm_request with a recording stub."""
+    """Monkeypatch Trial-2-final ``vlm_request`` with a recording stub."""
     stub = StubVLM()
-    monkeypatch.setattr(trial3, "vlm_request", stub)
+    monkeypatch.setattr(trial2_final, "vlm_request", stub)
     return stub

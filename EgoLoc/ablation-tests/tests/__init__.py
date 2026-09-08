@@ -1,1 +1,1 @@
-"""Pytest suite for the trial3.py refactor contract (Builder 1 deliverable)."""
+"""Tests for the Trial-2-final OccluBench ablation protocol."""

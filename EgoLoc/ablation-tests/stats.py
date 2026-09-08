@@ -163,6 +163,11 @@ def _metric_summary(rows, bootstrap_seed, n_boot):
     nmae_ci = bootstrap_mean_ci(
         nmae, seed=bootstrap_seed + 1, n_boot=n_boot
     )
+    recall_values = [
+        float(row["candidate_grid_recall"])
+        for row in rows
+        if row.get("candidate_grid_recall") is not None
+    ]
     return {
         "total_events": total,
         "successful_events": len(successful),
@@ -174,6 +179,9 @@ def _metric_summary(rows, bootstrap_seed, n_boot):
         "mean_normalized_mae": float(nmae.mean()) if nmae.size else None,
         "median_normalized_mae": float(np.median(nmae)) if nmae.size else None,
         "normalized_mae_ci95": list(nmae_ci),
+        "candidate_grid_recall": (
+            float(np.mean(recall_values)) if recall_values else None
+        ),
     }
 
 
@@ -211,6 +219,10 @@ def _build_rows(manifest, records, allow_partial):
             "speed_cues": record.get("cue_coverage", {}).get("speed_n"),
             "pinch_cues": record.get("cue_coverage", {}).get("pinch_n"),
             "neutral_fallback": record.get("cue_coverage", {}).get("neutral_n"),
+            "candidate_grid_recall": record.get("candidate_grid_recall"),
+            "candidate_grid_distance_to_ground_truth": record.get(
+                "candidate_grid_distance_to_ground_truth"
+            ),
         }
         trial_rows.append(trial_row)
         grouped.setdefault((episode, task, mode), []).append(trial_row)
@@ -233,6 +245,22 @@ def _build_rows(manifest, records, allow_partial):
                     if row["prediction_frame"] is not None
                 ]
                 prediction = rounded_mean_prediction(valid_predictions)
+                recall_values = [
+                    row["candidate_grid_recall"]
+                    for row in rows
+                    if row.get("candidate_grid_recall") is not None
+                ]
+                candidate_recall = (
+                    bool(recall_values[0]) if recall_values else None
+                )
+                if recall_values and any(
+                    bool(value) != candidate_recall
+                    for value in recall_values
+                ):
+                    raise RuntimeError(
+                        f"candidate grid changed across paired trials for "
+                        f"{episode}/{task}/{mode}"
+                    )
                 absolute_error = (
                     abs(prediction - ground_truth)
                     if prediction is not None
@@ -258,6 +286,7 @@ def _build_rows(manifest, records, allow_partial):
                         "recorded_trials": len(rows),
                         "expected_trials": 3,
                         "event_success": prediction is not None,
+                        "candidate_grid_recall": candidate_recall,
                         "partial": bool(allow_partial and len(rows) != 3),
                     }
                 )
@@ -542,8 +571,8 @@ def generate_statistics(
     table = [
         "# OccluBench EgoLoc sampling ablation",
         "",
-        "| Task | Mode | Success/total | Frame MAE (95% CI) | Median MAE | Normalized MAE | Failure |",
-        "|---|---|---:|---:|---:|---:|---:|",
+        "| Task | Mode | Success/total | Grid recall | Frame MAE (95% CI) | Median MAE | Normalized MAE | Failure |",
+        "|---|---|---:|---:|---:|---:|---:|---:|",
     ]
     for scope in (*TASKS, "combined"):
         for mode in MODES:
@@ -561,10 +590,12 @@ def generate_statistics(
             table.append(
                 f"| {scope} | {mode} | "
                 f"{metric['successful_events']}/{metric['total_events']} | "
+                f"{metric['candidate_grid_recall']:.3%} | "
                 f"{mae_text} | "
                 f"{median:.3f} | " if median is not None else
                 f"| {scope} | {mode} | "
                 f"{metric['successful_events']}/{metric['total_events']} | "
+                f"{metric['candidate_grid_recall']:.3%} | "
                 f"{mae_text} | NA | "
             )
             table[-1] += (

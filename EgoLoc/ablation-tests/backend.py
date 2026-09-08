@@ -231,7 +231,7 @@ class TransformersBackend:
             raise ValueError("image_bgr must be a HxWx3 BGR image")
         rgb = cv2.cvtColor(image_bgr, cv2.COLOR_BGR2RGB)
         image = Image.fromarray(rgb)
-        # Keep trial3's exact content order: text, then image.
+        # Keep Trial-2-final's image-request content order: text, then image.
         messages = [
             {
                 "role": "user",
@@ -342,3 +342,17 @@ class TransformersBackend:
                     )
                 )
         return outputs
+
+
+_SHARED_BACKEND = None
+_SHARED_BACKEND_LOCK = threading.Lock()
+
+
+def get_shared_backend():
+    """Return one process-wide warm NF4 model with both adapters attached."""
+    global _SHARED_BACKEND
+    if _SHARED_BACKEND is None:
+        with _SHARED_BACKEND_LOCK:
+            if _SHARED_BACKEND is None:
+                _SHARED_BACKEND = TransformersBackend()
+    return _SHARED_BACKEND
