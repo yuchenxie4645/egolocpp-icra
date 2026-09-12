@@ -279,12 +279,12 @@ def audit_results(
                 or prediction >= int(record.get("num_frames", 0))
             ):
                 _error(errors, key, "successful prediction is out of range")
-        if not isinstance(record.get("candidate_grid_recall"), bool):
-            _error(errors, key, "missing candidate-grid recall")
-        if record.get("primary_output") not in (None, "closed_loop"):
-            _error(errors, key, "result is not marked closed-loop")
+            if record.get("primary_output") != "closed_loop":
+                _error(errors, key, "result is not marked closed-loop")
         elif record.get("prediction_frame") is not None:
             _error(errors, key, "terminal failure contains a prediction")
+        if not isinstance(record.get("candidate_grid_recall"), bool):
+            _error(errors, key, "missing candidate-grid recall")
         strata[(task, mode, trial)] += 1
         seed_groups[(episode, task, trial)][mode] = record.get("seed")
         _validate_config(record, errors)

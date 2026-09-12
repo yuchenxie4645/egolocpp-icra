@@ -558,6 +558,10 @@ def run_evaluation(
     dry_run=False,
     backend=None,
     validate_inputs=True,
+    wait_for_inputs=False,
+    stream_chunk=1,
+    poll_seconds=30.0,
+    ready_marker=None,
 ):
     manifest = load_manifest(manifest_path, validate=True, check_sources=False)
     tasks = _normalize_choice(tasks, TASKS, "tasks")
@@ -566,7 +570,7 @@ def run_evaluation(
     records = _select_episodes(
         manifest, episodes=episodes, limit=limit_episodes
     )
-    if validate_inputs:
+    if validate_inputs and not wait_for_inputs:
         _validate_inputs(records, video_dir, signal_dir, modes)
     if backend is None:
         backend = _create_backend(dry_run=dry_run)
@@ -598,36 +602,101 @@ def run_evaluation(
     skipped = 0
     ignored_unavailable_events = 0
     status_counts = {"success": 0, "terminal_failure": 0}
-    # Locked task-major order minimizes PEFT set_adapter calls.
-    for task in tasks:
-        for record in records:
-            label_key = (
-                "contact_local" if task == "contact" else "separate_local"
+    if int(stream_chunk) < 1:
+        raise ValueError("stream_chunk must be >= 1")
+    if wait_for_inputs:
+        record_groups = [
+            records[index : index + int(stream_chunk)]
+            for index in range(0, len(records), int(stream_chunk))
+        ]
+    else:
+        record_groups = [records]
+    ready_marker = (
+        Path(ready_marker)
+        if ready_marker
+        else HERE / "data" / ".signals-ready"
+    )
+
+    for group_index, group in enumerate(record_groups):
+        active_group = [
+            record
+            for record in group
+            if any(
+                record["labels"].get(
+                    "contact_local"
+                    if task == "contact"
+                    else "separate_local"
+                )
+                is not None
+                for task in tasks
             )
-            if record["labels"].get(label_key) is None:
-                ignored_unavailable_events += 1
-                continue
-            for trial in trials:
-                for mode in modes:
-                    planned += 1
-                    key = result_key(record["episode"], task, mode, trial)
-                    if key in store:
-                        skipped += 1
-                        continue
-                    trial_record = _run_trial(
-                        record,
-                        task,
-                        mode,
-                        trial,
-                        retrying_backend,
-                        video_dir,
-                        signal_dir,
+        ]
+        if wait_for_inputs and validate_inputs and active_group:
+            last_error = None
+            while True:
+                try:
+                    _validate_inputs(
+                        active_group, video_dir, signal_dir, modes
                     )
-                    trial_record["config_hash"] = config_hash
-                    trial_record["config_snapshot"] = config
-                    store.append(trial_record)
-                    status_counts[trial_record["status"]] += 1
-                    written += 1
+                    print(
+                        f"[stream] input chunk {group_index + 1}/"
+                        f"{len(record_groups)} ready: "
+                        f"{active_group[0]['episode']}.."
+                        f"{active_group[-1]['episode']}",
+                        flush=True,
+                    )
+                    break
+                except Exception as exc:
+                    message = f"{type(exc).__name__}: {exc}"
+                    if ready_marker.exists():
+                        raise RuntimeError(
+                            "preparation marked complete but a streaming input "
+                            f"is invalid: {message}"
+                        ) from exc
+                    if message != last_error:
+                        print(
+                            f"[stream] waiting for chunk {group_index + 1}: "
+                            f"{message}",
+                            flush=True,
+                        )
+                        last_error = message
+                    time.sleep(float(poll_seconds))
+
+        # Task-major inside each ready chunk keeps adapter switches bounded
+        # while overlapping GPU-0 signal extraction with GPU-1 inference.
+        for task in tasks:
+            for record in group:
+                label_key = (
+                    "contact_local"
+                    if task == "contact"
+                    else "separate_local"
+                )
+                if record["labels"].get(label_key) is None:
+                    ignored_unavailable_events += 1
+                    continue
+                for trial in trials:
+                    for mode in modes:
+                        planned += 1
+                        key = result_key(
+                            record["episode"], task, mode, trial
+                        )
+                        if key in store:
+                            skipped += 1
+                            continue
+                        trial_record = _run_trial(
+                            record,
+                            task,
+                            mode,
+                            trial,
+                            retrying_backend,
+                            video_dir,
+                            signal_dir,
+                        )
+                        trial_record["config_hash"] = config_hash
+                        trial_record["config_snapshot"] = config
+                        store.append(trial_record)
+                        status_counts[trial_record["status"]] += 1
+                        written += 1
 
     return {
         "results_path": str(results_path),
@@ -646,6 +715,8 @@ def run_evaluation(
         "adapter_switch_count": int(
             getattr(backend, "adapter_switch_count", 0)
         ),
+        "streaming": bool(wait_for_inputs),
+        "stream_chunk": int(stream_chunk),
     }
 
 
@@ -666,6 +737,17 @@ def _parse_args(argv=None):
         default=True,
     )
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument(
+        "--wait-for-inputs",
+        action="store_true",
+        help="stream ready episode chunks while signal extraction continues",
+    )
+    parser.add_argument("--stream-chunk", type=int, default=1)
+    parser.add_argument("--poll-seconds", type=float, default=30.0)
+    parser.add_argument(
+        "--ready-marker",
+        default=str(HERE / "data" / ".signals-ready"),
+    )
     parser.add_argument(
         "--backend-load-smoke",
         action="store_true",
@@ -705,9 +787,17 @@ def main(argv=None):
         trials=args.trials,
         resume=args.resume,
         dry_run=args.dry_run,
+        wait_for_inputs=args.wait_for_inputs,
+        stream_chunk=args.stream_chunk,
+        poll_seconds=args.poll_seconds,
+        ready_marker=args.ready_marker,
     )
     print(json.dumps(summary, sort_keys=True))
-    if not args.dry_run and summary["adapter_switch_count"] > 2:
+    if (
+        not args.dry_run
+        and not args.wait_for_inputs
+        and summary["adapter_switch_count"] > 2
+    ):
         raise RuntimeError(
             "task-major adapter switch invariant violated (>2 switches)"
         )
